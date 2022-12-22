@@ -20,6 +20,9 @@ from compas_fea2.model.sections import TieSection
 from compas_fea2.model.sections import TrapezoidalSection
 from compas_fea2.model.sections import TrussSection
 
+#TODO
+#Improve description of parameter description
+
 class SofistikAngleSection(AngleSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.AngleSection`.\n
     """
@@ -32,29 +35,55 @@ class SofistikAngleSection(AngleSection):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikBeamSection(BeamSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.BeamSection`.\n
+
+    #FIXME
+    ----warnings
+        Check between SVAL or SECT from SOFiSTiK?
+
     """
     __doc__ += BeamSection.__doc__
 
     def __init__(self, *, A, Ixx, Iyy, Ixy, Avx, Avy, J, g0, gw, material, name=None, **kwargs):
         super(SofistikBeamSection, self).__init__(A=A, Ixx=Ixx, Iyy=Iyy, Ixy=Ixy, Avx=Avx, Avy=Avy, J=J, g0=g0, gw=gw, material=material, name=name, **kwargs)
-        raise NotImplementedError
 
     def _generate_jobdata(self):
-        raise NotImplementedError
+        return "SVAL NO {} MNO {} A {} IZ {} IY {} IYZ {} AZ {} AY {} IT {} G0? {} GW? {}".format(self.key+1,
+                                                                                                  self.material.key+1,
+                                                                                                  self.A,
+                                                                                                  self.Ixx,
+                                                                                                  self.Iyy,
+                                                                                                  self.Ixy,
+                                                                                                  self.Avx,
+                                                                                                  self.Avy,
+                                                                                                  self.J,
+                                                                                                  self.g0,
+                                                                                                  self.gw)
+
 
 class SofistikBoxSection(BoxSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.BoxSection`.\n
+
+    ----warnings
+        NEED TO FIND IN THE SREC COMMAND IN SOFISTIK THE EQUIVALENT OF tw AND tf
+    #FIXME
+
     """
     __doc__ += BoxSection.__doc__
 
     def __init__(self, w, h, tw, tf, material, name=None, **kwargs):
         super(SofistikBoxSection, self).__init__(w=w, h=h, tw=tw, tf=tf, material=material, name=name, **kwargs)
-        raise NotImplementedError
 
     def _generate_jobdata(self):
-        raise NotImplementedError
+        return "SREC no {}  h {}  b {} mno {} ToFindEquivalentOftw {} ToFindEquivalentOftf {}".format(self.key+1,
+                                                                                                      self.h,
+                                                                                                      self.w,
+                                                                                                      self.material.key+1,
+                                                                                                      self.tw,
+                                                                                                      self.tf)
+
 
 class SofistikCircularSection(CircularSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.CircularSection`.\n
@@ -63,10 +92,28 @@ class SofistikCircularSection(CircularSection):
 
     def __init__(self, r, material, name=None, **kwargs):
         super(SofistikCircularSection, self).__init__(r=r, material=material, name=name, **kwargs)
-        raise NotImplementedError
 
     def _generate_jobdata(self):
-        raise NotImplementedError
+        """Generates the common string information for the input file of the command
+        'SCIT - Circular and Tube Section' defined in the SOFiSTiK programme module AQUA.
+
+        Note
+        ----
+        The section key in sofistik starts from 1.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        str
+            Input file data line.
+        """
+        return "SCIT NO {} D {} MNO {}".format(self.key+1,
+                                                 2*self.r,
+                                                 self.material.key+1)
+
 
 class SofistikHexSection(HexSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.HexSection`.\n
@@ -80,6 +127,7 @@ class SofistikHexSection(HexSection):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikISection(ISection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.ISection`.\n
     """
@@ -91,6 +139,7 @@ class SofistikISection(ISection):
 
     def _generate_jobdata(self):
         raise NotImplementedError
+
 
 class SofistikMassSection(MassSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.MassSection`.\n
@@ -104,6 +153,7 @@ class SofistikMassSection(MassSection):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikMembraneSection(MembraneSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.MembraneSection`.\n
     """
@@ -115,6 +165,7 @@ class SofistikMembraneSection(MembraneSection):
 
     def _generate_jobdata(self):
         raise NotImplementedError
+
 
 class SofistikPipeSection(PipeSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.PipeSection`.\n
@@ -128,6 +179,7 @@ class SofistikPipeSection(PipeSection):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikRectangularSection(RectangularSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.RectangularSection`.\n
     """
@@ -135,10 +187,26 @@ class SofistikRectangularSection(RectangularSection):
 
     def __init__(self, w, h, material, name=None, **kwargs):
         super(SofistikRectangularSection, self).__init__(w=w, h=h, material=material, name=name, **kwargs)
-        raise NotImplementedError
 
     def _generate_jobdata(self):
-        raise NotImplementedError
+        """Generates the common string information for the input file of the command
+        'SREC - Rectangle, T-Beam, Plate' defined in the SOFiSTiK programme module AQUA.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        str
+            Input file data line.
+        """
+
+        return "SREC NO {} H {} B {} MNO {}".format(self.key+1,
+                                                    self.h,
+                                                    self.w,
+                                                    self.material.key+1)
+
 
 class SofistikShellSection(ShellSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.ShellSection`.\n
@@ -152,6 +220,7 @@ class SofistikShellSection(ShellSection):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikSolidSection(SolidSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.SolidSection`.\n
     """
@@ -163,6 +232,7 @@ class SofistikSolidSection(SolidSection):
 
     def _generate_jobdata(self):
         raise NotImplementedError
+
 
 class SofistikSpringSection(SpringSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.SpringSection`.\n
@@ -176,6 +246,7 @@ class SofistikSpringSection(SpringSection):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikStrutSection(StrutSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.StrutSection`.\n
     """
@@ -187,6 +258,7 @@ class SofistikStrutSection(StrutSection):
 
     def _generate_jobdata(self):
         raise NotImplementedError
+
 
 class SofistikTieSection(TieSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.TieSection`.\n
@@ -200,6 +272,7 @@ class SofistikTieSection(TieSection):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikTrapezoidalSection(TrapezoidalSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.TrapezoidalSection`.\n
     """
@@ -212,6 +285,7 @@ class SofistikTrapezoidalSection(TrapezoidalSection):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikTrussSection(TrussSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.TrussSection`.\n
     """
@@ -223,4 +297,3 @@ class SofistikTrussSection(TrussSection):
 
     def _generate_jobdata(self):
         raise NotImplementedError
-

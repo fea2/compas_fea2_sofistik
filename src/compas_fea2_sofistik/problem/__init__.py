@@ -19,7 +19,5 @@ from .loads import SofistikTributaryLoad
 from .outputs import SofistikFieldOutput
 from .outputs import SofistikHistoryOutput
 
-from .patterns import SofistikPattern
-
 from .problem import SofistikProblem
 

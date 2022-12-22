@@ -12,6 +12,7 @@ from compas_fea2.problem.loads import PrestressLoad
 from compas_fea2.problem.loads import ThermalLoad
 from compas_fea2.problem.loads import TributaryLoad
 
+
 class SofistikAreaLoad(AreaLoad):
     """Sofistik implementation of :class:`compas_fea2.problem.loads.AreaLoad`.\n
     """
@@ -23,6 +24,7 @@ class SofistikAreaLoad(AreaLoad):
 
     def _generate_jobdata(self):
         raise NotImplementedError
+
 
 class SofistikGravityLoad(GravityLoad):
     """Sofistik implementation of :class:`compas_fea2.problem.loads.GravityLoad`.\n
@@ -36,6 +38,7 @@ class SofistikGravityLoad(GravityLoad):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikHarmonicPointLoad(HarmonicPointLoad):
     """Sofistik implementation of :class:`compas_fea2.problem.loads.HarmonicPointLoad`.\n
     """
@@ -47,6 +50,7 @@ class SofistikHarmonicPointLoad(HarmonicPointLoad):
 
     def _generate_jobdata(self):
         raise NotImplementedError
+
 
 class SofistikHarmonicPressureLoad(HarmonicPressureLoad):
     """Sofistik implementation of :class:`compas_fea2.problem.loads.HarmonicPressureLoad`.\n
@@ -60,6 +64,7 @@ class SofistikHarmonicPressureLoad(HarmonicPressureLoad):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikLineLoad(LineLoad):
     """Sofistik implementation of :class:`compas_fea2.problem.loads.LineLoad`.\n
     """
@@ -72,6 +77,7 @@ class SofistikLineLoad(LineLoad):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikPointLoad(PointLoad):
     """Sofistik implementation of :class:`compas_fea2.problem.loads.PointLoad`.\n
     """
@@ -79,10 +85,24 @@ class SofistikPointLoad(PointLoad):
 
     def __init__(self, x=None, y=None, z=None, xx=None, yy=None, zz=None, axes='global', name=None, **kwargs):
         super(SofistikPointLoad, self).__init__(x=x, y=y, z=z, xx=xx, yy=yy, zz=zz, axes=axes, name=name, **kwargs)
-        raise NotImplementedError
+        """Generate the data for the input file for any bc.
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
+        Parameters
+        ----------
+        nodes : [:class:`compas_fea2.model.nodes.Node]
+            The nodes where the boundary condition is applied.
+
+        Returns
+        -------
+        str
+            input file data string
+        """
+
+    def _generate_jobdata(self, nodes):
+        comp = {'x':'p1','y':'p2','z':'p3','xx':'p4','yy':'p5','zz':'p6'}
+        return "\n".join(["NODE NO {} TYPE VV {}".format(node.key+1,
+                                            ' '.join([comp[c] for c in comp if getattr(self, c)]))
+                    for node in nodes])
 
 class SofistikPrestressLoad(PrestressLoad):
     """Sofistik implementation of :class:`compas_fea2.problem.loads.PrestressLoad`.\n
@@ -96,6 +116,7 @@ class SofistikPrestressLoad(PrestressLoad):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikThermalLoad(ThermalLoad):
     """Sofistik implementation of :class:`compas_fea2.problem.loads.ThermalLoad`.\n
     """
@@ -108,6 +129,7 @@ class SofistikThermalLoad(ThermalLoad):
     def _generate_jobdata(self):
         raise NotImplementedError
 
+
 class SofistikTributaryLoad(TributaryLoad):
     """Sofistik implementation of :class:`compas_fea2.problem.loads.TributaryLoad`.\n
     """
@@ -119,4 +141,3 @@ class SofistikTributaryLoad(TributaryLoad):
 
     def _generate_jobdata(self):
         raise NotImplementedError
-

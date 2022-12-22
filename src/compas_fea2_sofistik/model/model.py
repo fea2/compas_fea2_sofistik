@@ -11,8 +11,27 @@ class SofistikModel(Model):
 
     def __init__(self, *, name=None, description=None, author=None, **kwargs):
         super(SofistikModel, self).__init__(name=name, description=description, author=author, **kwargs)
-        raise NotImplementedError
 
     def _generate_jobdata(self):
-        raise NotImplementedError
+        return """
+$ PARTS
+{}
+
+$ ICs
+{}
+
+$ BCs
++prog sofimsha
+head Constraints
+syst rest
+ctrl rest 2
+{}
+
+end
+""".format(
+        "\n".join([part._generate_jobdata() for part in self.parts]),
+        "\n".join([ic._generate_jobdata() for ic in self.ics]),
+        "\n".join([bc._generate_jobdata(nodes) for bc, nodes in self.bcs.items()]),
+           )
+
 

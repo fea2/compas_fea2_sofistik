@@ -22,10 +22,27 @@ class SofistikBeamElement(BeamElement):
 
     def __init__(self, *, nodes, section, frame=None, implementation=None, name=None, **kwargs):
         super(SofistikBeamElement, self).__init__(nodes=nodes, section=section, frame=frame, implementation=implementation, name=name, **kwargs)
-        raise NotImplementedError
+
 
     def _generate_jobdata(self):
-        raise NotImplementedError
+        """Generate the jobdata for Beam Elements in the SOFiSTiK. This is part
+        of the programme module SOFiMSHA.
+
+        Warning
+        -------
+        By default DIV(=Equal partitioning of beam) is set to 1
+
+        Returns
+        -------
+        str
+            input file data line.
+        """
+
+        return "BEAM NO {} NA {} NE {} NCS {} DIV 1".format(self.key+1,
+                                                            self.nodes[0].key+1,
+                                                            self.nodes[1].key+1,
+                                                            self.section.key+1)
+
 
 class SofistikFace(Face):
     """Sofistik implementation of :class:`compas_fea2.model.elements.Face`.\n
