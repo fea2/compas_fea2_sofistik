@@ -2,8 +2,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from .input_file import InputFile
-from .input_file import ParametersFile
+from compas_fea2.job.input_file import InputFile
+from compas_fea2.job.input_file import ParametersFile
 
 class SofistikInputFile(InputFile):
     """Sofistik implementation of :class:`compas_fea2.job.input_file.InputFile`.\n

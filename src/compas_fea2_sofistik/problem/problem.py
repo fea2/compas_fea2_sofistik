@@ -11,7 +11,7 @@ from compas_fea2.problem import _Step
 
 from compas_fea2.utilities._utils import timer
 from compas_fea2.utilities._utils import launch_process
-from compas_fea2.backends.sofistik import BACKEND_HERE
+from .. import BACKEND_HERE
 
 class SofistikProblem(Problem):
     """Sofistik implementation of :class:`compas_fea2.problem.problem.Problem`.\n
