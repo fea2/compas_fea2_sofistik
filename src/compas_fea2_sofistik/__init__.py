@@ -3,6 +3,25 @@
 Sofistik
 ********************************************************************************
 """
+from __future__ import print_function
+
+__author__ = ["Francesco Ranaudo"]
+__copyright__ = "Francesco Ranaudo"
+__license__ = "MIT License"
+__email__ = "ranaudo@arch.ethz.ch"
+__version__ = "0.1.0"
+
+import os
+
+HERE = os.path.dirname(__file__)
+
+HOME = os.path.abspath(os.path.join(HERE, "../../"))
+DATA = os.path.abspath(os.path.join(HOME, "data"))
+DOCS = os.path.abspath(os.path.join(HOME, "docs"))
+TEMP = os.path.abspath(os.path.join(HOME, "temp"))
+
+
+__all__ = ["HOME", "DATA", "DOCS", "TEMP"]
 
 from pydoc import ErrorDuringImport
 import compas_fea2
