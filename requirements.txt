@@ -1,3 +1,2 @@
-compas
-compas_fea2
-pint
+git+https://github.com/fea2/compas_fea2@main#egg=compas_fea2
+
