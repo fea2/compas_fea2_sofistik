@@ -333,9 +333,9 @@ try:
         SofistikParametersFile,
     )
 
-    @plugin(category='fea_backends')
+    # build the plugin registry
     def register_backend():
-        backend = compas_fea2.BACKENDS['sofistik']
+        backend = compas_fea2.BACKENDS['compas_fea2_sofistik']
 
         backend[Model] = SofistikModel
 
