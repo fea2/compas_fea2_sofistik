@@ -13,6 +13,3 @@ class SofistikGeneralDisplacement(GeneralDisplacement):
         super(SofistikGeneralDisplacement, self).__init__(x=x, y=y, z=z, xx=xx, yy=yy, zz=zz, axes=axes, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-

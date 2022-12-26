@@ -14,28 +14,14 @@ class SofistikInputFile(InputFile):
         super(SofistikInputFile, self).__init__(name=name, **kwargs)
         self._extension = 'dat'
 
-    def _generate_jobdata(self):
-        """Generate the content of the input file from the Model and Problem object.
-
-        Parameters
-        ----------
-        problem : obj
-            Problem object.
-
-        Resturn
-        -------
-        str
-            content of the input file
-        """
-
-
+    def jobdata(self):
         return """
 $ ------------------------ MODEL ------------------------ $
 {}
 $ ----------------------- PROBLEM ----------------------- $
 {}
-""".format(self.model._generate_jobdata(),
-           self.problem._generate_jobdata())
+""".format(self.model.jobdata(),
+           self.problem.jobdata())
 
 
 class SofistikParametersFile(ParametersFile):
@@ -45,8 +31,5 @@ class SofistikParametersFile(ParametersFile):
 
     def __init__(self, name=None, **kwargs):
         super(SofistikParametersFile, self).__init__(name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError
 

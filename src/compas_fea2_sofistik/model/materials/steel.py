@@ -13,6 +13,3 @@ class SofistikSteel(Steel):
         super(SofistikSteel, self).__init__(fy=fy, fu=fu, eu=eu, E=E, v=v, density=density, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-

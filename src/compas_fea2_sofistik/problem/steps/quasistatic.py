@@ -14,8 +14,6 @@ class SofistikDirectCyclicStep(DirectCyclicStep):
         super(SofistikDirectCyclicStep, self).__init__(name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
 
 class SofistikQuasiStaticStep(QuasiStaticStep):
     """Sofistik implementation of :class:`compas_fea2.problem.steps.quasistatic.QuasiStaticStep`.\n
@@ -26,6 +24,4 @@ class SofistikQuasiStaticStep(QuasiStaticStep):
         super(SofistikQuasiStaticStep, self).__init__(name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
 

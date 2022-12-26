@@ -13,9 +13,7 @@ class SofistikDeformablePart(DeformablePart):
     def __init__(self, name=None, **kwargs):
         super(SofistikDeformablePart, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self):
-        """Generate the jobdata string
-        """
+    def jobdata(self):
         return """
 +prog aqua
 head Materials and Sections
@@ -38,10 +36,10 @@ $ ELEMENTS
 {}
 
 end
-""".format("\n".join([material._generate_jobdata() for material in self.materials]),
-            "\n".join([section._generate_jobdata() for section in self.sections]),
-            "\n".join([node._generate_jobdata() for node in self.nodes]),
-            "\n".join([element._generate_jobdata() for element in self.elements])
+""".format("\n".join([material.jobdata() for material in self.materials]),
+            "\n".join([section.jobdata() for section in self.sections]),
+            "\n".join([node.jobdata() for node in self.nodes]),
+            "\n".join([element.jobdata() for element in self.elements])
             )
 
 
@@ -52,8 +50,5 @@ class SofistikRigidPart(RigidPart):
 
     def __init__(self, reference_point=None, name=None, **kwargs):
         super(SofistikRigidPart, self).__init__(reference_point=reference_point, name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError
 

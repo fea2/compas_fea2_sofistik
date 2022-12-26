@@ -16,9 +16,6 @@ class SofistikElementsGroup(ElementsGroup):
         super(SofistikElementsGroup, self).__init__(elements=elements, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-
 class SofistikFacesGroup(FacesGroup):
     """Sofistik implementation of :class:`compas_fea2.model.groups.FacesGroup`.\n
     """
@@ -26,9 +23,6 @@ class SofistikFacesGroup(FacesGroup):
 
     def __init__(self, *, faces, name=None, **kwargs):
         super(SofistikFacesGroup, self).__init__(faces=faces, name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError
 
 class SofistikNodesGroup(NodesGroup):
@@ -40,9 +34,6 @@ class SofistikNodesGroup(NodesGroup):
         super(SofistikNodesGroup, self).__init__(nodes=nodes, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-
 class SofistikPartsGroup(PartsGroup):
     """Sofistik implementation of :class:`compas_fea2.model.groups.PartsGroup`.\n
     """
@@ -51,7 +42,3 @@ class SofistikPartsGroup(PartsGroup):
     def __init__(self, *, parts, name=None, **kwargs):
         super(SofistikPartsGroup, self).__init__(parts=parts, name=name, **kwargs)
         raise NotImplementedError
-
-    def _generate_jobdata(self):
-        raise NotImplementedError
-
