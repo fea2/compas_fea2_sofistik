@@ -84,10 +84,12 @@ class SofistikPointLoad(PointLoad):
         """
 
     def jobdata(self, nodes):
-        comp = {'x': 'p1', 'y': 'p2', 'z': 'p3', 'xx': 'p4', 'yy': 'p5', 'zz': 'p6'}
-        return "\n".join(["NODE NO {} TYPE VV {}".format(node.key+1,
-                                                         ' '.join([comp[c] for c in comp if getattr(self, c)]))
-                          for node in nodes])
+        comp = {'x':'PXX','y':'PYY','z':'PZZ','xx':'MXX','yy':'MYY','zz':'MZZ'}
+        attr = {'x':str(self.x),'y':str(self.y),'z':str(self.z),'xx':str(self.xx),'yy':str(self.yy),'zz':str(self.zz)}
+        return "\n".join(["NODE NO {} TYPE {} P1 {}".format(node.key+1,
+                                            ','.join([comp[c] for c in comp if getattr(self, c)]),
+                                            ','.join([attr[a] for a in attr if getattr(self,a)]))
+                    for node in nodes])
 
 
 class SofistikPrestressLoad(PrestressLoad):
