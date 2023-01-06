@@ -16,7 +16,6 @@ from .bcs import SofistikRollerBCYZ
 from .bcs import SofistikRollerBCZ
 
 from .constraints import SofistikBeamMPC
-from .constraints import SofistikMultiPointConstraint
 from .constraints import SofistikTieConstraint
 from .constraints import SofistikTieMPC
 
