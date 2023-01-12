@@ -22,6 +22,9 @@ from compas_fea2.model.sections import TrussSection
 
 
 class SofistikAngleSection(AngleSection):
+
+    #FIXME: Double-check the orientation of the section in sofistik
+
     """Sofistik implementation of :class:`compas_fea2.model.sections.AngleSection`.\n
 
     Note
@@ -33,12 +36,23 @@ class SofistikAngleSection(AngleSection):
 
     def __init__(self, w, h, t, material, name=None, **kwargs):
         super(SofistikAngleSection, self).__init__(w=w, h=h, t=t, material=material, name=name, **kwargs)
-        raise NotImplementedError
 
-# FIXME warnings Check between SVAL or SECT from SOFiSTiK?
-
+    def jobdata(self):
+        string = "SECT NO {} TITL 'ANGLE-SECTION' MNO {}\n".format(self.key+1,
+                                                        self.material.key+1)
+        string += "POLY TYPE O\n"
+        string += "VERT 1 {} {}\n".format(-self.w/2, -self.h/2)
+        string += "VERT 2 {} {}\n".format(self.w/2, -self.h/2)
+        string += "VERT 3 {} {}\n".format(self.w/2, -self.h/2 + self.t)
+        string += "VERT 4 {} {}\n".format(-self.w/2 + self.t, - self.h/2 + self.t)
+        string += "VERT 5 {} {}\n".format(-self.w/2 + self.t, self.h/2)
+        string += "VERT 6 {} {}\n".format(-self.w/2, self.h/2)
+        return string
 
 class SofistikBeamSection(BeamSection):
+
+    #FIXME: Discuss about concept of BeamSection
+
     """Sofistik implementation of :class:`compas_fea2.model.sections.BeamSection`.\n
 
     Note
@@ -67,7 +81,6 @@ class SofistikBeamSection(BeamSection):
                                                                                                            self.gw)
         return self._jobdata
 
-# FIXME NEED TO FIND IN THE SREC COMMAND IN SOFISTIK THE EQUIVALENT OF tw AND tf
 
 
 class SofistikBoxSection(BoxSection):
@@ -76,22 +89,36 @@ class SofistikBoxSection(BoxSection):
     Note
     ----
     The section key in sofistik starts from 1.
+    To create hollow sections, material number 0 (MNO 0) is assigned to the inner polygon and the actual material to the outer polygon.
+    Currently, it is assumed that the thickness of all four sides of the BoxSection is the same and equal to tw.
 
     """
     __doc__ += BoxSection.__doc__
 
+    # TODO Since in the BoxSection is still needed the implementation of different thickness along the 4 sides,
+    # here it is assumed that the 4 sides has the same thickness value tw
+
     def __init__(self, w, h, tw, tf, material, name=None, **kwargs):
         super(SofistikBoxSection, self).__init__(w=w, h=h, tw=tw, tf=tf, material=material, name=name, **kwargs)
 
-    @property
     def jobdata(self):
-        self._jobdata = "SREC no {}  h {}  b {} mno {} ToFindEquivalentOftw {} ToFindEquivalentOftf {}".format(self.key+1,
-                                                                                                               self.h,
-                                                                                                               self.w,
-                                                                                                               self.material.key+1,
-                                                                                                               self.tw,
-                                                                                                               self.tf)
-        return self._jobdata
+        string = "SECT NO {} TITL 'BOX-SECTION' MNO {}\n".format(self.key+1,
+                                                        self.material.key+1)
+        string += "POLY TYPE O\n"
+
+        string += "VERT 1  {} {}\n".format(-self.w/2, -self.h/2)
+        string += "VERT 2  {} {}\n".format(self.w/2, -self.h/2)
+        string += "VERT 3  {} {}\n".format(self.w/2, self.h/2)
+        string += "VERT 4  {} {}\n".format(-self.w/2, self.h/2)
+
+        string += "POLY TYPE O MNO 0\n"
+
+        string += "VERT 5  {} {}\n".format(-self.w/2 + self.tw, -self.h/2 + self.tw)
+        string += "VERT 6  {} {}\n".format(self.w/2 - self.tw, -self.h/2 + self.tw)
+        string += "VERT 7  {} {}\n".format(self.w/2 - self.tw, self.h/2 - self.tw)
+        string += "VERT 8  {} {}\n".format(-self.w/2 + self.tw, self.h/2 - self.tw)
+
+        return string
 
 
 class SofistikCircularSection(CircularSection):
@@ -100,6 +127,7 @@ class SofistikCircularSection(CircularSection):
     Note
     ----
     The section key in sofistik starts from 1.
+    A Solid CircularSection in sofistik uses the SCIT command with thickess (T) equal to 0.0
 
     """
     __doc__ += CircularSection.__doc__
@@ -107,12 +135,10 @@ class SofistikCircularSection(CircularSection):
     def __init__(self, r, material, name=None, **kwargs):
         super(SofistikCircularSection, self).__init__(r=r, material=material, name=name, **kwargs)
 
-    @property
     def jobdata(self):
-        self._jobdata = "SCIT NO {} D {} MNO {}".format(self.key+1,
+        return "SCIT NO {} D {} T 0.0 MNO {}".format(self.key+1,
                                                         2*self.r,
                                                         self.material.key+1)
-        return self._jobdata
 
 
 class SofistikHexSection(HexSection):
@@ -142,7 +168,40 @@ class SofistikISection(ISection):
 
     def __init__(self, w, h, tw, tf, material, name=None, **kwargs):
         super(SofistikISection, self).__init__(w=w, h=h, tw=tw, tf=tf, material=material, name=name, **kwargs)
-        raise NotImplementedError
+
+    def jobdata(self):
+        string = "SECT NO {} TITL 'I-SECTION' MNO {}\n".format(self.key+1,
+                                                        self.material.key+1)
+        string += "POLY TYPE O\n"
+
+        string += "VERT 1  {} {}\n".format(-self.w/2,-self.h/2)
+        string += "VERT 2  {} {}\n".format(self.w/2, -self.h/2)
+        string += "VERT 3  {} {}\n".format(self.w/2, -self.h/2 + self.tf)
+        string += "VERT 4  {} {}\n".format(self.tw/2, -self.h/2 + self.tf)
+        string += "VERT 5  {} {}\n".format(self.tw/2, self.h/2 - self.tf)
+        string += "VERT 6  {} {}\n".format(self.w/2, self.h/2 - self.tf)
+        string += "VERT 7  {} {}\n".format(self.w/2, self.h/2)
+        string += "VERT 8  {} {}\n".format(-self.w/2, self.h/2)
+        string += "VERT 9  {} {}\n".format(-self.w/2, self.h/2 - self.tf)
+        string += "VERT 10 {} {}\n".format(-self.tw/2, self.h/2 - self.tf)
+        string += "VERT 11 {} {}\n".format(-self.tw/2, -self.h/2 + self.tf)
+        string += "VERT 12 {} {}\n".format(-self.w/2, -self.h/2 + self.tf)
+
+        return string
+
+        # Other option is with the coordinate System with the 0,0 in the bottom left vertex
+        # string += "VERT 1  {} {}\n".format(0, 0)
+        # string += "VERT 2  {} {}\n".format(self.w, 0)
+        # string += "VERT 3  {} {}\n".format(self.w, self.tf)
+        # string += "VERT 4  {} {}\n".format(self.w/2 + self.tw/2, self.tf)
+        # string += "VERT 5  {} {}\n".format(self.w/2 + self.tw/2, self.h - self.tf)
+        # string += "VERT 6  {} {}\n".format(self.w, self.h - self.tf)
+        # string += "VERT 7  {} {}\n".format(self.w, self.h)
+        # string += "VERT 8  {} {}\n".format(0, self.h)
+        # string += "VERT 9  {} {}\n".format(0, self.h - self.tf)
+        # string += "VERT 10 {} {}\n".format(self.w/2 - self.tw/2, self.h - self.tf)
+        # string += "VERT 11 {} {}\n".format(self.w/2 - self.tw/2, self.tf)
+        # string += "VERT 12 {} {}\n".format(0, self.tf)
 
 
 class SofistikMassSection(MassSection):
@@ -181,13 +240,20 @@ class SofistikPipeSection(PipeSection):
     Note
     ----
     The section key in sofistik starts from 1.
+    A PipeSection in sofistik uses the SCIT command with thickess (T) not equal to 0.0
 
     """
     __doc__ += PipeSection.__doc__
 
     def __init__(self, r, t, material, name=None, **kwargs):
         super(SofistikPipeSection, self).__init__(r=r, t=t, material=material, name=name, **kwargs)
-        raise NotImplementedError
+
+    def jobdata(self):
+        return "SCIT NO {} D {} T {} MNO {}".format(self.key+1,
+                                                        2*self.r,
+                                                        self.t,
+                                                        self.material.key+1)
+
 
 
 class SofistikRectangularSection(RectangularSection):
@@ -314,3 +380,5 @@ class SofistikTrussSection(TrussSection):
     def __init__(self, A, material, name=None, **kwargs):
         super(SofistikTrussSection, self).__init__(A=A, material=material, name=name, **kwargs)
         raise NotImplementedError
+
+
