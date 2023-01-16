@@ -90,7 +90,23 @@ class SofistikShellElement(ShellElement):
 
     def __init__(self, *, nodes, frame=None, section=None, implementation=None, rigid=False, name=None, **kwargs):
         super(SofistikShellElement, self).__init__(nodes=nodes, frame=frame, section=section, implementation=implementation, rigid=rigid, name=name, **kwargs)
-        raise NotImplementedError
+
+    def jobdata(self):
+        "QUA CI SARà SOLO IL COMANDO QUAD. I nodes della mesh dovrebbero uscire da nodes.py"
+
+    # Occore lavorare con self._faces (vedi Shell element con il metodo _construct_faces). In pratica self._faces è un dizionario con key-values pari a key della faccia-indice dei nodi
+    # perciò in NO {} ci andrà il numero di questo binomio, mentre in N1, N2, N3, N4 i 4 numeri del values del dizionario. Quindi mi serve sapere com accedere al numero di binomi in un 
+    # dizionario, accedere ai singoli valori del 'valore rispetto ad una chiave'. Scritto con il culo ma ok. 
+    # Poi dovrò trovare un modo per accedere al valore di MNO e T.
+    
+
+        #return """QUAD NO {} N1 {} N2 {} N3 {} N4 {} MNO {} T {}""".format(node._key for node in face._nodes for face in self._faces)
+                                                                            #self._key for node in self._nodes for face in self._faces)
+                                                                            #node[0] for node in self._nodes for face in self._faces)
+        #string = ["KEY_A {0} KEY_B {1} KEY_C {2} KEY_D {3}".format([node._key for node in face._nodes]) for face in self._faces]
+        string = ["QUAD NO {0} N1 {1} N2 {2} N3 {3} N4 {4} MNO {5}".format(i,
+                                                                   *[node._key for node in face._nodes]) for i, face in enumerate(self._faces)]
+        return string
 
 class SofistikSpringElement(SpringElement):
     """Sofistik implementation of :class:`compas_fea2.model.elements.SpringElement`.\n
