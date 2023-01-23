@@ -288,7 +288,9 @@ class SofistikShellSection(ShellSection):
 
     def __init__(self, t, material, name=None, **kwargs):
         super(SofistikShellSection, self).__init__(t=t, material=material, name=name, **kwargs)
-        raise NotImplementedError
+    
+    def jobdata(self):
+        return "TestFromShellSection"
 
 
 class SofistikSolidSection(SolidSection):
