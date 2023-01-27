@@ -112,6 +112,8 @@ class SofistikShellElement(ShellElement):
                                                                     self.section.material.key+1,
                                                                     self.section.t)
 
+        #test
+
 class SofistikSpringElement(SpringElement):
     """Sofistik implementation of :class:`compas_fea2.model.elements.SpringElement`.\n
     """
