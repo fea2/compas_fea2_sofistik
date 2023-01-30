@@ -37,7 +37,6 @@ class SofistikBeamElement(BeamElement):
                                                             self.nodes[1].key+1,
                                                             self.section.key+1)
 
-
 class SofistikFace(Face):
     """Sofistik implementation of :class:`compas_fea2.model.elements.Face`.\n
     """
@@ -84,6 +83,9 @@ class SofistikPentahedronElement(PentahedronElement):
         raise NotImplementedError
 
 class SofistikShellElement(ShellElement):
+
+    # TODO Check the numbers of nodes (they need to be four for the command QUAD).
+
     """Sofistik implementation of :class:`compas_fea2.model.elements.ShellElement`.\n
     """
     __doc__ += ShellElement.__doc__
@@ -92,27 +94,11 @@ class SofistikShellElement(ShellElement):
         super(SofistikShellElement, self).__init__(nodes=nodes, frame=frame, section=section, implementation=implementation, rigid=rigid, name=name, **kwargs)
 
     def jobdata(self):
-        "QUA CI SARà SOLO IL COMANDO QUAD. I nodes della mesh dovrebbero uscire da nodes.py"
 
-    # Occore lavorare con self._faces (vedi Shell element con il metodo _construct_faces). In pratica self._faces è un dizionario con key-values pari a key della faccia-indice dei nodi
-    # perciò in NO {} ci andrà il numero di questo binomio, mentre in N1, N2, N3, N4 i 4 numeri del values del dizionario. Quindi mi serve sapere com accedere al numero di binomi in un 
-    # dizionario, accedere ai singoli valori del 'valore rispetto ad una chiave'. Scritto con il culo, ma it's ok. 
-    # Poi dovrò trovare un modo per accedere al valore di MNO e T.
-    
-
-        #return """QUAD NO {} N1 {} N2 {} N3 {} N4 {} MNO {} T {}""".format(node._key for node in face._nodes for face in self._faces)
-                                                                            #self._key for node in self._nodes for face in self._faces)
-                                                                            #node[0] for node in self._nodes for face in self._faces)
-        #string = ["KEY_A {0} KEY_B {1} KEY_C {2} KEY_D {3}".format([node._key for node in face._nodes]) for face in self._faces]
-        #string = ["QUAD NO {0} N1 {1} N2 {2} N3 {3} N4 {4} MNO {5}".format(i,
-        #                                                           *[node._key for node in face._nodes]) for i, face in enumerate(self._faces)]
-
-        return "QUAD NO {0} N1 {1} N2 {2} N3 {3} N4 {4} MNO {5} T {6}".format(self.key+1000,
+        return "QUAD NO {0} N1 {1} N2 {2} N3 {3} N4 {4} MNO {5} T {6}".format(self.key+1001,
                                                                    *[node.key for node in self.nodes],
                                                                     self.section.material.key+1,
                                                                     self.section.t)
-
-    #test3
 
 class SofistikSpringElement(SpringElement):
     """Sofistik implementation of :class:`compas_fea2.model.elements.SpringElement`.\n
