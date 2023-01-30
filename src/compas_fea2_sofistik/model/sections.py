@@ -51,8 +51,6 @@ class SofistikAngleSection(AngleSection):
 
 class SofistikBeamSection(BeamSection):
 
-    #FIXME: Discuss about concept of BeamSection
-
     """Sofistik implementation of :class:`compas_fea2.model.sections.BeamSection`.\n
 
     Note
@@ -68,7 +66,7 @@ class SofistikBeamSection(BeamSection):
 
     @property
     def jobdata(self):
-        self._jobdata = "SVAL NO {} MNO {} A {} IZ {} IY {} IYZ {} AZ {} AY {} IT {} G0? {} GW? {}".format(self.key+1,
+        self._jobdata = "SVAL NO {} MNO {} A {} IZ {} IY {} IYZ {} AZ {} AY {} IT {}".format(self.key+1,
                                                                                                            self.material.key+1,
                                                                                                            self.A,
                                                                                                            self.Ixx,
@@ -76,12 +74,8 @@ class SofistikBeamSection(BeamSection):
                                                                                                            self.Ixy,
                                                                                                            self.Avx,
                                                                                                            self.Avy,
-                                                                                                           self.J,
-                                                                                                           self.g0,
-                                                                                                           self.gw)
+                                                                                                           self.J)
         return self._jobdata
-
-
 
 class SofistikBoxSection(BoxSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.BoxSection`.\n
@@ -94,9 +88,6 @@ class SofistikBoxSection(BoxSection):
 
     """
     __doc__ += BoxSection.__doc__
-
-    # TODO Since in the BoxSection is still needed the implementation of different thickness along the 4 sides,
-    # here it is assumed that the 4 sides has the same thickness value tw
 
     def __init__(self, w, h, tw, tf, material, name=None, **kwargs):
         super(SofistikBoxSection, self).__init__(w=w, h=h, tw=tw, tf=tf, material=material, name=name, **kwargs)
@@ -120,7 +111,6 @@ class SofistikBoxSection(BoxSection):
 
         return string
 
-
 class SofistikCircularSection(CircularSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.CircularSection`.\n
 
@@ -140,7 +130,6 @@ class SofistikCircularSection(CircularSection):
                                                         2*self.r,
                                                         self.material.key+1)
 
-
 class SofistikHexSection(HexSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.HexSection`.\n
 
@@ -154,7 +143,6 @@ class SofistikHexSection(HexSection):
     def __init__(self, r, t, material, name=None, **kwargs):
         super(SofistikHexSection, self).__init__(r=r, t=t, material=material, name=name, **kwargs)
         raise NotImplementedError
-
 
 class SofistikISection(ISection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.ISection`.\n
@@ -189,21 +177,6 @@ class SofistikISection(ISection):
 
         return string
 
-        # Other option is with the coordinate System with the 0,0 in the bottom left vertex
-        # string += "VERT 1  {} {}\n".format(0, 0)
-        # string += "VERT 2  {} {}\n".format(self.w, 0)
-        # string += "VERT 3  {} {}\n".format(self.w, self.tf)
-        # string += "VERT 4  {} {}\n".format(self.w/2 + self.tw/2, self.tf)
-        # string += "VERT 5  {} {}\n".format(self.w/2 + self.tw/2, self.h - self.tf)
-        # string += "VERT 6  {} {}\n".format(self.w, self.h - self.tf)
-        # string += "VERT 7  {} {}\n".format(self.w, self.h)
-        # string += "VERT 8  {} {}\n".format(0, self.h)
-        # string += "VERT 9  {} {}\n".format(0, self.h - self.tf)
-        # string += "VERT 10 {} {}\n".format(self.w/2 - self.tw/2, self.h - self.tf)
-        # string += "VERT 11 {} {}\n".format(self.w/2 - self.tw/2, self.tf)
-        # string += "VERT 12 {} {}\n".format(0, self.tf)
-
-
 class SofistikMassSection(MassSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.MassSection`.\n
 
@@ -218,7 +191,6 @@ class SofistikMassSection(MassSection):
         super(SofistikMassSection, self).__init__(mass=mass, name=name, **kwargs)
         raise NotImplementedError
 
-
 class SofistikMembraneSection(MembraneSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.MembraneSection`.\n
 
@@ -232,7 +204,6 @@ class SofistikMembraneSection(MembraneSection):
     def __init__(self, t, material, name=None, **kwargs):
         super(SofistikMembraneSection, self).__init__(t=t, material=material, name=name, **kwargs)
         raise NotImplementedError
-
 
 class SofistikPipeSection(PipeSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.PipeSection`.\n
@@ -254,8 +225,6 @@ class SofistikPipeSection(PipeSection):
                                                         self.t,
                                                         self.material.key+1)
 
-
-
 class SofistikRectangularSection(RectangularSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.RectangularSection`.\n
 
@@ -275,7 +244,6 @@ class SofistikRectangularSection(RectangularSection):
                                                     self.w,
                                                     self.material.key+1)
 
-
 class SofistikShellSection(ShellSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.ShellSection`.\n
 
@@ -292,7 +260,6 @@ class SofistikShellSection(ShellSection):
     def jobdata(self):
         raise NotImplementedError
 
-
 class SofistikSolidSection(SolidSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.SolidSection`.\n
 
@@ -306,7 +273,6 @@ class SofistikSolidSection(SolidSection):
     def __init__(self, material, name=None, **kwargs):
         super(SofistikSolidSection, self).__init__(material=material, name=name, **kwargs)
         raise NotImplementedError
-
 
 class SofistikSpringSection(SpringSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.SpringSection`.\n
@@ -323,7 +289,6 @@ class SofistikSpringSection(SpringSection):
                                                     displacements=displacements, stiffness=stiffness, name=name, **kwargs)
         raise NotImplementedError
 
-
 class SofistikStrutSection(StrutSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.StrutSection`.\n
 
@@ -337,7 +302,6 @@ class SofistikStrutSection(StrutSection):
     def __init__(self, A, material, name=None, **kwargs):
         super(SofistikStrutSection, self).__init__(A=A, material=material, name=name, **kwargs)
         raise NotImplementedError
-
 
 class SofistikTieSection(TieSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.TieSection`.\n
@@ -353,7 +317,6 @@ class SofistikTieSection(TieSection):
         super(SofistikTieSection, self).__init__(A=A, material=material, name=name, **kwargs)
         raise NotImplementedError
 
-
 class SofistikTrapezoidalSection(TrapezoidalSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.TrapezoidalSection`.\n
 
@@ -367,7 +330,6 @@ class SofistikTrapezoidalSection(TrapezoidalSection):
     def __init__(self, w1, w2, h, material, name=None, **kwargs):
         super(SofistikTrapezoidalSection, self).__init__(w1=w1, w2=w2, h=h, material=material, name=name, **kwargs)
         raise NotImplementedError
-
 
 class SofistikTrussSection(TrussSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.TrussSection`.\n
