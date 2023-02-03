@@ -26,4 +26,5 @@ class SofistikNode(Node):
                                                       self.x,
                                                       self.y,
                                                       self.z)
+    #test
 
