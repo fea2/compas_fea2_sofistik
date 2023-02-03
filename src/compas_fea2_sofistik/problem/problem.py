@@ -23,6 +23,9 @@ class SofistikProblem(Problem):
 
     def jobdata(self):
         return """
+
+!#!Chapter Problem
+
 $ STEPS
 {}
 
