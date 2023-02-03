@@ -14,8 +14,6 @@ class SofistikResults(Results):
         super(SofistikResults, self).__init__(database_path=database_path, database_name=database_name)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
 
 class SofistikStepResults(StepResults):
     """Sofistik implementation of :class:`compas_fea2.results.results.StepResults`.\n
@@ -25,7 +23,3 @@ class SofistikStepResults(StepResults):
     def __init__(self, name=None, **kwargs):
         super(SofistikStepResults, self).__init__(name=name, **kwargs)
         raise NotImplementedError
-
-    def _generate_jobdata(self):
-        raise NotImplementedError
-

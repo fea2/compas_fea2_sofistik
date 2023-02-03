@@ -43,7 +43,7 @@ class SofistikClampBCXX(ClampBCXX):
     def __init__(self, name=None, **kwargs):
         super(SofistikClampBCXX, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
 
 class SofistikClampBCYY(ClampBCYY):
@@ -54,7 +54,7 @@ class SofistikClampBCYY(ClampBCYY):
     def __init__(self, name=None, **kwargs):
         super(SofistikClampBCYY, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
 
 class SofistikClampBCZZ(ClampBCZZ):
@@ -65,7 +65,7 @@ class SofistikClampBCZZ(ClampBCZZ):
     def __init__(self, name=None, **kwargs):
         super(SofistikClampBCZZ, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
 
 class SofistikFixedBC(FixedBC):
@@ -76,7 +76,7 @@ class SofistikFixedBC(FixedBC):
     def __init__(self, name=None, **kwargs):
         super(SofistikFixedBC, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
 
 class SofistikGeneralBC(GeneralBC):
@@ -87,7 +87,7 @@ class SofistikGeneralBC(GeneralBC):
     def __init__(self, name=None, x=False, y=False, z=False, xx=False, yy=False, zz=False, **kwargs):
         super(SofistikGeneralBC, self).__init__(name=name, x=x, y=y, z=z, xx=xx, yy=yy, zz=zz, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
 
 
@@ -99,7 +99,7 @@ class SofistikPinnedBC(PinnedBC):
     def __init__(self, name=None, **kwargs):
         super(SofistikPinnedBC, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
 
 class SofistikRollerBCX(RollerBCX):
@@ -110,7 +110,7 @@ class SofistikRollerBCX(RollerBCX):
     def __init__(self, name=None, **kwargs):
         super(SofistikRollerBCX, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
 
 class SofistikRollerBCXY(RollerBCXY):
@@ -121,7 +121,7 @@ class SofistikRollerBCXY(RollerBCXY):
     def __init__(self, name=None, **kwargs):
         super(SofistikRollerBCXY, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
 
 class SofistikRollerBCXZ(RollerBCXZ):
@@ -132,7 +132,7 @@ class SofistikRollerBCXZ(RollerBCXZ):
     def __init__(self, name=None, **kwargs):
         super(SofistikRollerBCXZ, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
 
 class SofistikRollerBCY(RollerBCY):
@@ -143,7 +143,7 @@ class SofistikRollerBCY(RollerBCY):
     def __init__(self, name=None, **kwargs):
         super(SofistikRollerBCY, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
 
 class SofistikRollerBCYZ(RollerBCYZ):
@@ -154,7 +154,7 @@ class SofistikRollerBCYZ(RollerBCYZ):
     def __init__(self, name=None, **kwargs):
         super(SofistikRollerBCYZ, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
 
 class SofistikRollerBCZ(RollerBCZ):
@@ -165,6 +165,7 @@ class SofistikRollerBCZ(RollerBCZ):
     def __init__(self, name=None, **kwargs):
         super(SofistikRollerBCZ, self).__init__(name=name, **kwargs)
 
-    def _generate_jobdata(self, nodes):
+    def jobdata(self, nodes):
         return _generate_jobdata(self, nodes)
+
 

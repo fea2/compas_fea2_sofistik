@@ -13,6 +13,3 @@ class SofistikPrescribedTemperatureField(PrescribedTemperatureField):
         super(SofistikPrescribedTemperatureField, self).__init__(temperature=temperature, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-

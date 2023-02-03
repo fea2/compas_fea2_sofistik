@@ -14,9 +14,6 @@ class SofistikInitialStressField(InitialStressField):
         super(SofistikInitialStressField, self).__init__(stress=stress, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-
 class SofistikInitialTemperatureField(InitialTemperatureField):
     """Sofistik implementation of :class:`compas_fea2.model.ics.InitialTemperatureField`.\n
     """
@@ -24,8 +21,5 @@ class SofistikInitialTemperatureField(InitialTemperatureField):
 
     def __init__(self, temperature, name=None, **kwargs):
         super(SofistikInitialTemperatureField, self).__init__(temperature=temperature, name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError
 

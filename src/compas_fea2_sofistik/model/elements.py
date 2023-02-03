@@ -23,26 +23,19 @@ class SofistikBeamElement(BeamElement):
     def __init__(self, *, nodes, section, frame=None, implementation=None, name=None, **kwargs):
         super(SofistikBeamElement, self).__init__(nodes=nodes, section=section, frame=frame, implementation=implementation, name=name, **kwargs)
 
-
-    def _generate_jobdata(self):
+    def jobdata(self):
         """Generate the jobdata for Beam Elements in the SOFiSTiK. This is part
         of the programme module SOFiMSHA.
 
         Warning
         -------
         By default DIV(=Equal partitioning of beam) is set to 1
-
-        Returns
-        -------
-        str
-            input file data line.
         """
 
         return "BEAM NO {} NA {} NE {} NCS {} DIV 1".format(self.key+1,
                                                             self.nodes[0].key+1,
                                                             self.nodes[1].key+1,
                                                             self.section.key+1)
-
 
 class SofistikFace(Face):
     """Sofistik implementation of :class:`compas_fea2.model.elements.Face`.\n
@@ -51,9 +44,6 @@ class SofistikFace(Face):
 
     def __init__(self, *, nodes, tag, element=None, name=None):
         super(SofistikFace, self).__init__(nodes=nodes, tag=tag, element=element, name=name)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError
 
 class SofistikHexahedronElement(HexahedronElement):
@@ -65,9 +55,6 @@ class SofistikHexahedronElement(HexahedronElement):
         super(SofistikHexahedronElement, self).__init__(nodes=nodes, section=section, implementation=implementation, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-
 class SofistikMassElement(MassElement):
     """Sofistik implementation of :class:`compas_fea2.model.elements.MassElement`.\n
     """
@@ -75,9 +62,6 @@ class SofistikMassElement(MassElement):
 
     def __init__(self, *, nodes, section, frame=None, implementation=None, name=None, **kwargs):
         super(SofistikMassElement, self).__init__(nodes=nodes, section=section, frame=frame, implementation=implementation, name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError
 
 class SofistikMembraneElement(MembraneElement):
@@ -89,9 +73,6 @@ class SofistikMembraneElement(MembraneElement):
         super(SofistikMembraneElement, self).__init__(nodes=nodes, frame=frame, section=section, implementation=implementation, rigid=rigid, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-
 class SofistikPentahedronElement(PentahedronElement):
     """Sofistik implementation of :class:`compas_fea2.model.elements.PentahedronElement`.\n
     """
@@ -101,20 +82,23 @@ class SofistikPentahedronElement(PentahedronElement):
         super(SofistikPentahedronElement, self).__init__(nodes=nodes, section=section, implementation=implementation, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-
 class SofistikShellElement(ShellElement):
+
+    # TODO Check the numbers of nodes (they need to be four for the command QUAD).
+
     """Sofistik implementation of :class:`compas_fea2.model.elements.ShellElement`.\n
     """
     __doc__ += ShellElement.__doc__
 
     def __init__(self, *, nodes, frame=None, section=None, implementation=None, rigid=False, name=None, **kwargs):
         super(SofistikShellElement, self).__init__(nodes=nodes, frame=frame, section=section, implementation=implementation, rigid=rigid, name=name, **kwargs)
-        raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
+    def jobdata(self):
+
+        return "QUAD NO {0} N1 {1} N2 {2} N3 {3} N4 {4} MNO {5} T {6}".format(self.key+1001,
+                                                                   *[node.key for node in self.nodes],
+                                                                    self.section.material.key+1,
+                                                                    self.section.t)
 
 class SofistikSpringElement(SpringElement):
     """Sofistik implementation of :class:`compas_fea2.model.elements.SpringElement`.\n
@@ -123,9 +107,6 @@ class SofistikSpringElement(SpringElement):
 
     def __init__(self, *, nodes, section, frame=None, implementation=None, name=None, **kwargs):
         super(SofistikSpringElement, self).__init__(nodes=nodes, section=section, frame=frame, implementation=implementation, name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError
 
 class SofistikStrutElement(StrutElement):
@@ -137,9 +118,6 @@ class SofistikStrutElement(StrutElement):
         super(SofistikStrutElement, self).__init__(nodes=nodes, section=section, frame=frame, implementation=implementation, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-
 class SofistikTetrahedronElement(TetrahedronElement):
     """Sofistik implementation of :class:`compas_fea2.model.elements.TetrahedronElement`.\n
     """
@@ -147,9 +125,6 @@ class SofistikTetrahedronElement(TetrahedronElement):
 
     def __init__(self, *, nodes, section, implementation=None, name=None, **kwargs):
         super(SofistikTetrahedronElement, self).__init__(nodes=nodes, section=section, implementation=implementation, name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError
 
 class SofistikTieElement(TieElement):
@@ -161,8 +136,6 @@ class SofistikTieElement(TieElement):
         super(SofistikTieElement, self).__init__(nodes=nodes, section=section, frame=frame, implementation=implementation, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
 
 class SofistikTrussElement(TrussElement):
     """Sofistik implementation of :class:`compas_fea2.model.elements.TrussElement`.\n
@@ -173,6 +146,4 @@ class SofistikTrussElement(TrussElement):
         super(SofistikTrussElement, self).__init__(nodes=nodes, section=section, frame=frame, implementation=implementation, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
 

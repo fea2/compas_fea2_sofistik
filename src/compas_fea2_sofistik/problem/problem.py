@@ -21,8 +21,11 @@ class SofistikProblem(Problem):
     def __init__(self, name=None, description=None, **kwargs):
         super(SofistikProblem, self).__init__(name=name, description=description, **kwargs)
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         return """
+
+!#!Chapter Problem
+
 $ STEPS
 {}
 
@@ -40,7 +43,7 @@ stre
 lc 1000
 beam type beam
 end
-        """.format('\n'.join([step._generate_jobdata() for step in self.steps]))
+        """.format('\n'.join([step.jobdata() for step in self.steps]))
 
 
     @timer(message='Analysis completed in')

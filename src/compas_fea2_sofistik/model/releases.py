@@ -14,9 +14,6 @@ class SofistikBeamEndPinRelease(BeamEndPinRelease):
         super(SofistikBeamEndPinRelease, self).__init__(m1=m1, m2=m2, t=t, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-
 class SofistikBeamEndSliderRelease(BeamEndSliderRelease):
     """Sofistik implementation of :class:`compas_fea2.model.releases.BeamEndSliderRelease`.\n
     """
@@ -24,8 +21,5 @@ class SofistikBeamEndSliderRelease(BeamEndSliderRelease):
 
     def __init__(self, v1=False, v2=False, name=None, **kwargs):
         super(SofistikBeamEndSliderRelease, self).__init__(v1=v1, v2=v2, name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError
 

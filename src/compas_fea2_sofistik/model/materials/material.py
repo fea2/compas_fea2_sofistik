@@ -15,33 +15,13 @@ class SofistikElasticIsotropic(ElasticIsotropic):
     __doc__ += ElasticIsotropic.__doc__
 
     def __init__(self, *, E, v, density, expansion=None, name=None, **kwargs):
-        super(SofistikElasticIsotropic, self).__init__(E=E, v=v, density=density, expansion=expansion, name=name, **kwargs)
+        super(SofistikElasticIsotropic, self).__init__(
+            E=E, v=v, density=density, expansion=expansion, name=name, **kwargs)
 
-    def _generate_jobdata(self):
-        """Generates the common string information for the input file of the command
-        'MAT - General Material Properties' defined in the SOFiSTiK programme module AQUA.
-
-        Parameters
-        ----------
-        NO : ---
-            Material number
-        E : ---
-            Elastic Modulus
-        MUE : ---
-            Poisson's ratio 
-        G : ---
-            Shear modulus
-        GAM : --
-            Specif weigth
-        ALFA : ---
-            Thermal expansion coefficient
-        Returns
-        -------
-        input file data line (str)
-        """
+    def jobdata(self):
         return "MAT NO {} {} {} {} {} {}".format(self.key+1,
                                                  "E {}".format(self.E) if self.E else "",
-                                                 "MUE {}".format(self.v) if self.v else"",
+                                                 "MUE {}".format(self.v) if self.v else "",
                                                  "G {}".format(self.G) if self.G else "",
                                                  "GAM {}".format(self.density) if self.density else "",
                                                  "ALFA {}".format(self.expansion) if self.expansion else "")
@@ -57,9 +37,6 @@ class SofistikElasticOrthotropic(ElasticOrthotropic):
                                                          Gxy=Gxy, Gyz=Gyz, Gzx=Gzx, density=density, expansion=expansion, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-
 
 class SofistikElasticPlastic(ElasticPlastic):
     """Sofistik implementation of :class:`compas_fea2.model.materials.material.ElasticPlastic`.\n
@@ -67,10 +44,8 @@ class SofistikElasticPlastic(ElasticPlastic):
     __doc__ += ElasticPlastic.__doc__
 
     def __init__(self, *, E, v, density, strain_stress, expansion=None, name=None, **kwargs):
-        super(SofistikElasticPlastic, self).__init__(E=E, v=v, density=density, strain_stress=strain_stress, expansion=expansion, name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
+        super(SofistikElasticPlastic, self).__init__(E=E, v=v, density=density,
+                                                     strain_stress=strain_stress, expansion=expansion, name=name, **kwargs)
         raise NotImplementedError
 
 
@@ -83,9 +58,6 @@ class SofistikStiff(Stiff):
         super(SofistikStiff, self).__init__(name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-
 
 class SofistikUserMaterial(UserMaterial):
     """Sofistik implementation of :class:`compas_fea2.model.materials.material.UserMaterial`.\n
@@ -94,7 +66,4 @@ class SofistikUserMaterial(UserMaterial):
 
     def __init__(self, name=None, **kwargs):
         super(SofistikUserMaterial, self).__init__(name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError

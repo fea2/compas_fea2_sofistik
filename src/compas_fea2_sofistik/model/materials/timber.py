@@ -13,6 +13,3 @@ class SofistikTimber(Timber):
         super(SofistikTimber, self).__init__(name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
-

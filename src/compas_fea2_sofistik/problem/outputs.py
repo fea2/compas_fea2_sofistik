@@ -10,11 +10,8 @@ class SofistikFieldOutput(FieldOutput):
     """
     __doc__ += FieldOutput.__doc__
 
-    def __init__(self, node_outputs, element_outputs, contact_outputs, name=None, **kwargs):
+    def __init__(self, node_outputs=None, element_outputs=None, contact_outputs=None, name=None, **kwargs):
         super(SofistikFieldOutput, self).__init__(node_outputs=node_outputs, element_outputs=element_outputs, contact_outputs=contact_outputs, name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError
 
 class SofistikHistoryOutput(HistoryOutput):
@@ -24,8 +21,5 @@ class SofistikHistoryOutput(HistoryOutput):
 
     def __init__(self, name=None, **kwargs):
         super(SofistikHistoryOutput, self).__init__(name=name, **kwargs)
-        raise NotImplementedError
-
-    def _generate_jobdata(self):
         raise NotImplementedError
 
