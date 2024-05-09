@@ -1,17 +1,477 @@
+# """
+# ********************************************************************************
+# Sofistik
+# ********************************************************************************
+# """
+# from __future__ import print_function
+
+# __author__ = ["Francesco Ranaudo"]
+# __copyright__ = "Francesco Ranaudo"
+# __license__ = "MIT License"
+# __email__ = "ranaudo@arch.ethz.ch"
+# __version__ = "0.1.0"
+
+# import os
+
+# HERE = os.path.dirname(__file__)
+
+# HOME = os.path.abspath(os.path.join(HERE, "../../"))
+# DATA = os.path.abspath(os.path.join(HOME, "data"))
+# DOCS = os.path.abspath(os.path.join(HOME, "docs"))
+# TEMP = os.path.abspath(os.path.join(HOME, "temp"))
+
+
+# __all__ = ["HOME", "DATA", "DOCS", "TEMP"]
+
+# from pydoc import ErrorDuringImport
+# import compas_fea2
+
+# from compas.plugins import plugin
+# import os
+
+# BACKEND_HERE = os.path.dirname(__file__)
+
+# # Materials
+# from compas_fea2.model.materials import (
+#     ElasticIsotropic,
+#     ElasticOrthotropic,
+#     ElasticPlastic,
+#     Stiff,
+#     UserMaterial,
+#     Concrete,
+#     ConcreteDamagedPlasticity,
+#     ConcreteSmearedCrack,
+#     Steel,
+#     Timber,
+# )
+
+# # Boundary Conditions
+# from compas_fea2.model.bcs import (
+#     GeneralBC,
+#     FixedBC,
+#     ClampBCXX,
+#     ClampBCYY,
+#     ClampBCZZ,
+#     PinnedBC,
+#     RollerBCX,
+#     RollerBCXY,
+#     RollerBCXZ,
+#     RollerBCY,
+#     RollerBCYZ,
+#     RollerBCZ,
+# )
+
+# # Constraints
+# from compas_fea2.model.constraints import (
+#     TieMPC,
+#     BeamMPC,
+#     TieConstraint,
+# )
+
+# # Intial Conditions
+# from compas_fea2.model.ics import (
+#     InitialTemperatureField,
+#     InitialStressField,
+# )
+
+# # Elements
+# from compas_fea2.model.elements import (
+#     MassElement,
+#     BeamElement,
+#     TrussElement,
+#     MembraneElement,
+#     ShellElement,
+#     _Element3D,
+#     TetrahedronElement,
+#     HexahedronElement,
+# )
+
+# # Groups
+# from compas_fea2.model.groups import (
+#     NodesGroup,
+#     ElementsGroup,
+#     FacesGroup,
+# )
+
+# # Models
+# from compas_fea2.model import Model
+
+# # Nodes
+# from compas_fea2.model import Node
+
+# # Parts
+# from compas_fea2.model import DeformablePart, RigidPart
+
+# # Releases
+# from compas_fea2.model.releases import (
+#     BeamEndPinRelease,
+# )
+
+# # Sections
+# from compas_fea2.model.sections import (
+#     AngleSection,
+#     BeamSection,
+#     BoxSection,
+#     CircularSection,
+#     HexSection,
+#     ISection,
+#     MassSection,
+#     PipeSection,
+#     RectangularSection,
+#     SpringSection,
+#     StrutSection,
+#     TieSection,
+#     TrapezoidalSection,
+#     TrussSection,
+#     MembraneSection,
+#     ShellSection,
+#     SolidSection,
+# )
+
+
+# # Steps
+# from compas_fea2.problem.steps import (
+#     ModalAnalysis,
+#     ComplexEigenValue,
+#     StaticStep,
+#     LinearStaticPerturbation,
+#     BucklingAnalysis,
+#     DynamicStep,
+#     QuasiStaticStep,
+#     DirectCyclicStep,
+# )
+# # Displacements
+# from compas_fea2.problem.displacements import (
+#     GeneralDisplacement,
+# )
+# # Fields
+# from compas_fea2.problem.fields import (
+#     PrescribedTemperatureField,
+# )
+# # Loads
+# from compas_fea2.problem.loads import (
+#     PointLoad,
+#     LineLoad,
+#     AreaLoad,
+#     TributaryLoad,
+#     PrestressLoad,
+#     GravityLoad,
+#     HarmonicPointLoad,
+#     HarmonicPressureLoad,
+#     ThermalLoad
+# )
+
+# # Outputs
+# from compas_fea2.problem.outputs import (
+#     FieldOutput,
+#     HistoryOutput,
+# )
+
+# # Problem
+# from compas_fea2.problem import Problem
+
+# # Results
+# from compas_fea2.results import (
+#     Results,
+#     StepResults,
+# )
+
+# # Input File
+# from compas_fea2.job import (
+#     InputFile,
+#     ParametersFile,
+# )
+# # =========================================================================
+# #                           SOFISTIK CLASSES
+# # =========================================================================
+
+# try:
+#     # Sofistik Models
+#     from .model import SofistikModel
+#     from .model import SofistikDeformablePart, SofistikRigidPart
+#     from .model import SofistikNode
+
+#     # Sofistik Elements
+#     from .model.elements import (
+#         SofistikMassElement,
+#         SofistikBeamElement,
+#         SofistikTrussElement,
+#         SofistikMembraneElement,
+#         SofistikShellElement,
+#         SofistikTetrahedronElement,
+#         SofistikHexahedronElement,
+#     )
+
+#     # Sofistik Sections
+#     from .model.sections import (
+#         SofistikAngleSection,
+#         SofistikBeamSection,
+#         SofistikBoxSection,
+#         SofistikCircularSection,
+#         SofistikHexSection,
+#         SofistikISection,
+#         SofistikMassSection,
+#         SofistikPipeSection,
+#         SofistikRectangularSection,
+#         SofistikSpringSection,
+#         SofistikStrutSection,
+#         SofistikTieSection,
+#         SofistikTrapezoidalSection,
+#         SofistikTrussSection,
+#         SofistikMembraneSection,
+#         SofistikShellSection,
+#         SofistikSolidSection,
+#     )
+
+#     # Sofistik Materials
+#     from .model.materials import (
+#         SofistikElasticIsotropic,
+#         SofistikElasticOrthotropic,
+#         SofistikElasticPlastic,
+#         SofistikStiff,
+#         SofistikUserMaterial,
+#         SofistikConcrete,
+#         SofistikConcreteDamagedPlasticity,
+#         SofistikConcreteSmearedCrack,
+#         SofistikSteel,
+#         SofistikTimber,
+#     )
+
+#     # Sofistik Groups
+#     from .model.groups import (
+#         SofistikNodesGroup,
+#         SofistikElementsGroup,
+#         SofistikFacesGroup,
+#     )
+
+#     # Sofistik Constraints
+#     from .model.constraints import (
+#         SofistikTieMPC,
+#         SofistikBeamMPC,
+#         SofistikTieConstraint,
+#     )
+
+#     # Sofistik Initial Conditions
+#     from .model.ics import (
+#         SofistikInitialTemperatureField,
+#         SofistikInitialStressField,
+#     )
+
+#     # Sofistik release
+#     from .model.releases import (
+#         SofistikBeamEndPinRelease,
+#     )
+
+#     # Sofistik Boundary Conditions
+#     from .model.bcs import (
+#         SofistikGeneralBC,
+#         SofistikFixedBC,
+#         SofistikClampBCXX,
+#         SofistikClampBCYY,
+#         SofistikClampBCZZ,
+#         SofistikPinnedBC,
+#         SofistikRollerBCX,
+#         SofistikRollerBCXY,
+#         SofistikRollerBCXZ,
+#         SofistikRollerBCY,
+#         SofistikRollerBCYZ,
+#         SofistikRollerBCZ,
+#     )
+
+#     # Sofistik Problem
+#     from .problem import SofistikProblem
+
+#     # Sofistik Steps
+#     from .problem.steps import (
+#         SofistikModalAnalysis,
+#         SofistikComplexEigenValue,
+#         SofistikStaticStep,
+#         SofistikLinearStaticPerturbation,
+#         SofistikBucklingAnalysis,
+#         SofistikDynamicStep,
+#         SofistikQuasiStaticStep,
+#         SofistikDirectCyclicStep,
+#     )
+#     # Sofistik Loads
+#     from .problem.loads import (
+#         SofistikPointLoad,
+#         SofistikLineLoad,
+#         SofistikAreaLoad,
+#         SofistikTributaryLoad,
+#         SofistikPrestressLoad,
+#         SofistikGravityLoad,
+#         SofistikHarmonicPointLoad,
+#         SofistikHarmonicPressureLoad,
+#         SofistikThermalLoad,
+#     )
+
+#     # Sofistik Fields
+#     from .problem.fields import (
+#         SofistikPrescribedTemperatureField,
+#     )
+
+#     # Sofistik Displacements
+#     from .problem.displacements import (
+#         SofistikGeneralDisplacement,
+#     )
+
+#     # Sofistik outputs
+#     from .problem.outputs import (
+#         SofistikFieldOutput,
+#         SofistikHistoryOutput,
+#     )
+
+#     # Sofistik Results
+#     from .results import (
+#         SofistikResults,
+#         SofistikStepResults,
+#     )
+
+#     # Sofistik Input File
+#     from .job import(
+#         SofistikInputFile,
+#         SofistikParametersFile,
+#     )
+
+#     # build the plugin registry
+#     def register_backend():
+#         backend = compas_fea2.BACKENDS['compas_fea2_sofistik']
+
+#         backend[Model] = SofistikModel
+
+#         backend[DeformablePart] = SofistikDeformablePart
+#         backend[RigidPart] = SofistikRigidPart
+
+#         backend[Node] = SofistikNode
+
+#         backend[MassElement] = SofistikMassElement
+#         backend[BeamElement] = SofistikBeamElement
+#         backend[TrussElement] = SofistikTrussElement
+#         backend[MembraneElement] = SofistikMembraneElement
+#         backend[ShellElement] = SofistikShellElement
+#         backend[TetrahedronElement] = SofistikTetrahedronElement
+#         backend[HexahedronElement] = SofistikHexahedronElement
+
+#         backend[AngleSection] = SofistikAngleSection
+#         backend[BeamSection] = SofistikBeamSection
+#         backend[BoxSection] = SofistikBoxSection
+#         backend[CircularSection] = SofistikCircularSection
+#         backend[HexSection] = SofistikHexSection
+#         backend[ISection] = SofistikISection
+#         backend[MassSection] = SofistikMassSection
+#         backend[MembraneSection] = SofistikMembraneSection
+#         backend[PipeSection] = SofistikPipeSection
+#         backend[RectangularSection] = SofistikRectangularSection
+#         backend[ShellSection] = SofistikShellSection
+#         backend[SolidSection] = SofistikSolidSection
+#         backend[SpringSection] = SofistikSpringSection
+#         backend[StrutSection] = SofistikStrutSection
+#         backend[TieSection] = SofistikTieSection
+#         backend[TrapezoidalSection] = SofistikTrapezoidalSection
+#         backend[TrussSection] = SofistikTrussSection
+
+#         backend[ElasticIsotropic] = SofistikElasticIsotropic
+#         backend[ElasticOrthotropic] = SofistikElasticOrthotropic
+#         backend[ElasticPlastic] = SofistikElasticPlastic
+#         backend[Stiff] = SofistikStiff
+#         backend[UserMaterial] = SofistikUserMaterial
+#         backend[Concrete] = SofistikConcrete
+#         backend[ConcreteDamagedPlasticity] = SofistikConcreteDamagedPlasticity
+#         backend[ConcreteSmearedCrack] = SofistikConcreteSmearedCrack
+#         backend[Steel] = SofistikSteel
+#         backend[Timber] = SofistikTimber
+
+#         backend[NodesGroup] = SofistikNodesGroup
+#         backend[ElementsGroup] = SofistikElementsGroup
+#         backend[FacesGroup] = SofistikFacesGroup
+
+#         backend[TieMPC] = SofistikTieMPC
+#         backend[BeamMPC] = SofistikBeamMPC
+#         backend[TieConstraint] = SofistikTieConstraint
+
+#         backend[BeamEndPinRelease] = SofistikBeamEndPinRelease
+
+#         backend[InitialTemperatureField] = SofistikInitialTemperatureField
+#         backend[InitialStressField] = SofistikInitialStressField
+
+#         backend[GeneralBC] = SofistikGeneralBC
+#         backend[FixedBC] = SofistikFixedBC
+#         backend[ClampBCXX] = SofistikClampBCXX
+#         backend[ClampBCYY] = SofistikClampBCYY
+#         backend[ClampBCZZ] = SofistikClampBCZZ
+#         backend[PinnedBC] = SofistikPinnedBC
+#         backend[RollerBCX] = SofistikRollerBCX
+#         backend[RollerBCXY] = SofistikRollerBCXY
+#         backend[RollerBCXZ] = SofistikRollerBCXZ
+#         backend[RollerBCY] = SofistikRollerBCY
+#         backend[RollerBCYZ] = SofistikRollerBCYZ
+#         backend[RollerBCZ] = SofistikRollerBCZ
+
+#         backend[Problem] = SofistikProblem
+
+#         backend[ModalAnalysis] = SofistikModalAnalysis
+#         backend[ComplexEigenValue, StaticStep] = SofistikComplexEigenValue
+#         backend[StaticStep] = SofistikStaticStep
+#         backend[LinearStaticPerturbation] = SofistikLinearStaticPerturbation
+#         backend[BucklingAnalysis] = SofistikBucklingAnalysis
+#         backend[DynamicStep] = SofistikDynamicStep
+#         backend[QuasiStaticStep] = SofistikQuasiStaticStep
+#         backend[DirectCyclicStep] = SofistikDirectCyclicStep
+
+#         backend[GravityLoad] = SofistikGravityLoad
+#         backend[PointLoad] = SofistikPointLoad
+#         backend[LineLoad] = SofistikLineLoad
+#         backend[AreaLoad] = SofistikAreaLoad
+#         backend[TributaryLoad] = SofistikTributaryLoad
+#         backend[PrestressLoad] = SofistikPrestressLoad
+#         backend[HarmonicPointLoad] = SofistikHarmonicPointLoad
+#         backend[HarmonicPressureLoad] = SofistikHarmonicPressureLoad
+#         backend[ThermalLoad] = SofistikThermalLoad
+
+#         backend[GeneralDisplacement] = SofistikGeneralDisplacement
+
+#         backend[PrescribedTemperatureField] = SofistikPrescribedTemperatureField
+
+#         backend[FieldOutput] = SofistikFieldOutput
+#         backend[HistoryOutput] = SofistikHistoryOutput
+
+#         backend[Results] = SofistikResults
+#         backend[StepResults] = SofistikStepResults
+
+#         backend[InputFile] = SofistikInputFile
+#         backend[ParametersFile] = SofistikParametersFile
+
+#         print('Sofistik implementations registered...')
+# except:
+#     raise ErrorDuringImport()
+
 """
 ********************************************************************************
 Sofistik
 ********************************************************************************
+
+
+
+
+.. currentmodule:: compas_fea2_sofistik
+
+
+.. toctree::
+    :maxdepth: 1
+
+
 """
+
 from __future__ import print_function
+
+import os
+from dotenv import load_dotenv
 
 __author__ = ["Francesco Ranaudo"]
 __copyright__ = "Francesco Ranaudo"
 __license__ = "MIT License"
 __email__ = "ranaudo@arch.ethz.ch"
 __version__ = "0.1.0"
-
-import os
 
 HERE = os.path.dirname(__file__)
 
@@ -27,53 +487,11 @@ from pydoc import ErrorDuringImport
 import compas_fea2
 
 from compas.plugins import plugin
-import os
 
-BACKEND_HERE = os.path.dirname(__file__)
-
-# Materials
-from compas_fea2.model.materials import (
-    ElasticIsotropic,
-    ElasticOrthotropic,
-    ElasticPlastic,
-    Stiff,
-    UserMaterial,
-    Concrete,
-    ConcreteDamagedPlasticity,
-    ConcreteSmearedCrack,
-    Steel,
-    Timber,
-)
-
-# Boundary Conditions
-from compas_fea2.model.bcs import (
-    GeneralBC,
-    FixedBC,
-    ClampBCXX,
-    ClampBCYY,
-    ClampBCZZ,
-    PinnedBC,
-    RollerBCX,
-    RollerBCXY,
-    RollerBCXZ,
-    RollerBCY,
-    RollerBCYZ,
-    RollerBCZ,
-)
-
-# Constraints
-from compas_fea2.model.constraints import (
-    TieMPC,
-    BeamMPC,
-    TieConstraint,
-)
-
-# Intial Conditions
-from compas_fea2.model.ics import (
-    InitialTemperatureField,
-    InitialStressField,
-)
-
+# Models
+from compas_fea2.model import Model
+from compas_fea2.model import DeformablePart
+from compas_fea2.model import Node
 # Elements
 from compas_fea2.model.elements import (
     MassElement,
@@ -83,30 +501,7 @@ from compas_fea2.model.elements import (
     ShellElement,
     _Element3D,
     TetrahedronElement,
-    HexahedronElement,
 )
-
-# Groups
-from compas_fea2.model.groups import (
-    NodesGroup,
-    ElementsGroup,
-    FacesGroup,
-)
-
-# Models
-from compas_fea2.model import Model
-
-# Nodes
-from compas_fea2.model import Node
-
-# Parts
-from compas_fea2.model import DeformablePart, RigidPart
-
-# Releases
-from compas_fea2.model.releases import (
-    BeamEndPinRelease,
-)
-
 # Sections
 from compas_fea2.model.sections import (
     AngleSection,
@@ -127,8 +522,58 @@ from compas_fea2.model.sections import (
     ShellSection,
     SolidSection,
 )
+# Materials
+from compas_fea2.model.materials.material import (
+    ElasticIsotropic,
+    ElasticOrthotropic,
+    ElasticPlastic,
+    Stiff,
+    UserMaterial,
+)
+from compas_fea2.model.materials.concrete import (
+    Concrete,
+    ConcreteDamagedPlasticity,
+    ConcreteSmearedCrack,
+)
+from compas_fea2.model.materials.steel import (
+    Steel,
+)
+# Groups
+from compas_fea2.model.groups import (
+    NodesGroup,
+    ElementsGroup,
+    FacesGroup,
+)
 
+# Constraints
+from compas_fea2.model.constraints import (
+    TieConstraint,
+)
+# Releases
+from compas_fea2.model.releases import (
+    BeamEndPinRelease,
+)
 
+# Boundary Conditions
+from compas_fea2.model.bcs import (
+    FixedBC,
+    FixedBCX,
+    FixedBCY,
+    FixedBCZ,
+    ClampBCXX,
+    ClampBCYY,
+    ClampBCZZ,
+    PinnedBC,
+    RollerBCX,
+    RollerBCXY,
+    RollerBCXZ,
+    RollerBCY,
+    RollerBCYZ,
+    RollerBCZ,
+)
+
+# Problem
+from compas_fea2.problem import Problem
 # Steps
 from compas_fea2.problem.steps import (
     ModalAnalysis,
@@ -140,40 +585,38 @@ from compas_fea2.problem.steps import (
     QuasiStaticStep,
     DirectCyclicStep,
 )
-# Displacements
-from compas_fea2.problem.displacements import (
-    GeneralDisplacement,
-)
-# Fields
-from compas_fea2.problem.fields import (
-    PrescribedTemperatureField,
-)
 # Loads
 from compas_fea2.problem.loads import (
-    PointLoad,
-    LineLoad,
-    AreaLoad,
+    NodeLoad,
+    EdgeLoad,
+    FaceLoad,
     TributaryLoad,
     PrestressLoad,
     GravityLoad,
     HarmonicPointLoad,
     HarmonicPressureLoad,
-    ThermalLoad
 )
-
+# Displacements
+from compas_fea2.problem.displacements import (
+    GeneralDisplacement,
+)
+# Displacements
+from compas_fea2.problem.combinations import (
+    LoadCombination,
+)
 # Outputs
 from compas_fea2.problem.outputs import (
     FieldOutput,
     HistoryOutput,
 )
 
-# Problem
-from compas_fea2.problem import Problem
-
 # Results
 from compas_fea2.results import (
-    Results,
-    StepResults,
+    Result,
+    DisplacementResult,
+    StressResult,
+    DisplacementFieldResults,
+    StressFieldResults,
 )
 
 # Input File
@@ -182,13 +625,13 @@ from compas_fea2.job import (
     ParametersFile,
 )
 # =========================================================================
-#                           SOFISTIK CLASSES
+#                           OPENSEES CLASSES
 # =========================================================================
 
 try:
-    # Sofistik Models
+    # Opensees Models
     from .model import SofistikModel
-    from .model import SofistikDeformablePart, SofistikRigidPart
+    from .model import SofistikDeformablePart
     from .model import SofistikNode
 
     # Sofistik Elements
@@ -199,7 +642,6 @@ try:
         SofistikMembraneElement,
         SofistikShellElement,
         SofistikTetrahedronElement,
-        SofistikHexahedronElement,
     )
 
     # Sofistik Sections
@@ -224,19 +666,21 @@ try:
     )
 
     # Sofistik Materials
-    from .model.materials import (
+    from .model.materials.material import (
         SofistikElasticIsotropic,
         SofistikElasticOrthotropic,
         SofistikElasticPlastic,
         SofistikStiff,
         SofistikUserMaterial,
+    )
+    from .model.materials.concrete import (
         SofistikConcrete,
         SofistikConcreteDamagedPlasticity,
         SofistikConcreteSmearedCrack,
-        SofistikSteel,
-        SofistikTimber,
     )
-
+    from .model.materials.steel import (
+        SofistikSteel,
+    )
     # Sofistik Groups
     from .model.groups import (
         SofistikNodesGroup,
@@ -246,15 +690,7 @@ try:
 
     # Sofistik Constraints
     from .model.constraints import (
-        SofistikTieMPC,
-        SofistikBeamMPC,
         SofistikTieConstraint,
-    )
-
-    # Sofistik Initial Conditions
-    from .model.ics import (
-        SofistikInitialTemperatureField,
-        SofistikInitialStressField,
     )
 
     # Sofistik release
@@ -264,8 +700,10 @@ try:
 
     # Sofistik Boundary Conditions
     from .model.bcs import (
-        SofistikGeneralBC,
         SofistikFixedBC,
+        SofistikFixedBCX,
+        SofistikFixedBCY,
+        SofistikFixedBCZ,
         SofistikClampBCXX,
         SofistikClampBCYY,
         SofistikClampBCZZ,
@@ -294,25 +732,22 @@ try:
     )
     # Sofistik Loads
     from .problem.loads import (
-        SofistikPointLoad,
-        SofistikLineLoad,
-        SofistikAreaLoad,
+        SofistikNodeLoad,
         SofistikTributaryLoad,
         SofistikPrestressLoad,
         SofistikGravityLoad,
         SofistikHarmonicPointLoad,
         SofistikHarmonicPressureLoad,
-        SofistikThermalLoad,
-    )
-
-    # Sofistik Fields
-    from .problem.fields import (
-        SofistikPrescribedTemperatureField,
     )
 
     # Sofistik Displacements
     from .problem.displacements import (
         SofistikGeneralDisplacement,
+    )
+
+    # Sofistik Displacements
+    from .problem.combinations import (
+        SofistikLoadCombination,
     )
 
     # Sofistik outputs
@@ -323,8 +758,11 @@ try:
 
     # Sofistik Results
     from .results import (
-        SofistikResults,
-        SofistikStepResults,
+        SofistikResult,
+        SofistikDisplacementResult,
+        SofistikStressResult,
+        SofistikDisplacementFieldResults,
+        SofistikStressFieldResults,
     )
 
     # Sofistik Input File
@@ -334,14 +772,11 @@ try:
     )
 
     # build the plugin registry
-    def register_backend():
+    def _register_backend():
         backend = compas_fea2.BACKENDS['compas_fea2_sofistik']
 
         backend[Model] = SofistikModel
-
         backend[DeformablePart] = SofistikDeformablePart
-        backend[RigidPart] = SofistikRigidPart
-
         backend[Node] = SofistikNode
 
         backend[MassElement] = SofistikMassElement
@@ -350,7 +785,6 @@ try:
         backend[MembraneElement] = SofistikMembraneElement
         backend[ShellElement] = SofistikShellElement
         backend[TetrahedronElement] = SofistikTetrahedronElement
-        backend[HexahedronElement] = SofistikHexahedronElement
 
         backend[AngleSection] = SofistikAngleSection
         backend[BeamSection] = SofistikBeamSection
@@ -379,23 +813,19 @@ try:
         backend[ConcreteDamagedPlasticity] = SofistikConcreteDamagedPlasticity
         backend[ConcreteSmearedCrack] = SofistikConcreteSmearedCrack
         backend[Steel] = SofistikSteel
-        backend[Timber] = SofistikTimber
 
         backend[NodesGroup] = SofistikNodesGroup
         backend[ElementsGroup] = SofistikElementsGroup
         backend[FacesGroup] = SofistikFacesGroup
 
-        backend[TieMPC] = SofistikTieMPC
-        backend[BeamMPC] = SofistikBeamMPC
         backend[TieConstraint] = SofistikTieConstraint
 
         backend[BeamEndPinRelease] = SofistikBeamEndPinRelease
 
-        backend[InitialTemperatureField] = SofistikInitialTemperatureField
-        backend[InitialStressField] = SofistikInitialStressField
-
-        backend[GeneralBC] = SofistikGeneralBC
         backend[FixedBC] = SofistikFixedBC
+        backend[FixedBCX] = SofistikFixedBCX
+        backend[FixedBCY] = SofistikFixedBCY
+        backend[FixedBCZ] = SofistikFixedBCZ
         backend[ClampBCXX] = SofistikClampBCXX
         backend[ClampBCYY] = SofistikClampBCYY
         backend[ClampBCZZ] = SofistikClampBCZZ
@@ -419,24 +849,24 @@ try:
         backend[DirectCyclicStep] = SofistikDirectCyclicStep
 
         backend[GravityLoad] = SofistikGravityLoad
-        backend[PointLoad] = SofistikPointLoad
-        backend[LineLoad] = SofistikLineLoad
-        backend[AreaLoad] = SofistikAreaLoad
+        backend[NodeLoad] = SofistikNodeLoad
         backend[TributaryLoad] = SofistikTributaryLoad
         backend[PrestressLoad] = SofistikPrestressLoad
         backend[HarmonicPointLoad] = SofistikHarmonicPointLoad
         backend[HarmonicPressureLoad] = SofistikHarmonicPressureLoad
-        backend[ThermalLoad] = SofistikThermalLoad
 
         backend[GeneralDisplacement] = SofistikGeneralDisplacement
 
-        backend[PrescribedTemperatureField] = SofistikPrescribedTemperatureField
+        backend[LoadCombination] = SofistikLoadCombination
 
         backend[FieldOutput] = SofistikFieldOutput
         backend[HistoryOutput] = SofistikHistoryOutput
 
-        backend[Results] = SofistikResults
-        backend[StepResults] = SofistikStepResults
+        backend[Result] = SofistikResult
+        backend[DisplacementResult] = SofistikDisplacementResult
+        backend[StressResult] = SofistikStressResult
+        backend[DisplacementFieldResults] = SofistikDisplacementFieldResults
+        backend[StressFieldResults] = SofistikStressFieldResults
 
         backend[InputFile] = SofistikInputFile
         backend[ParametersFile] = SofistikParametersFile
@@ -444,3 +874,52 @@ try:
         print('Sofistik implementations registered...')
 except:
     raise ErrorDuringImport()
+
+
+
+def init_fea2_Sofistik(exe):
+    """Create a default environment file if it doesn't exist and loads its variables.
+
+    Parameters
+    ----------
+    verbose : bool, optional
+        Be verbose when printing output, by default False
+    point_overlap : bool, optional
+        Allow two nodes to be at the same location, by default True
+    global_tolerance : int, optional
+        Tolerance for the model, by default 1
+    precision : str, optional
+        Values approximation, by default '3f'
+
+    """
+
+    env_path = os.path.abspath(os.path.join(HERE, ".env"))
+    with open(env_path, "x") as f:
+        f.write(
+            "\n".join(
+                [
+                    "EXE={}".format(exe),
+                ]
+            )
+        )
+    load_dotenv(env_path)
+
+
+if not load_dotenv():
+
+    from sys import platform
+
+    if platform == "linux" or platform == "linux2":
+        # linux
+        raise ValueError('Sofistik is not available on Linux')
+    elif platform == "darwin":
+        # OS X
+        raise ValueError('Sofistik is not available on OS')
+    elif platform == "win32":
+        # Windows
+        exe = 'C:/Program Files/SOFiSTiK/2024/SOFiSTiK 2024'
+    else:
+        raise ValueError('you must specify the location of the solver.')
+    init_fea2_Sofistik(exe)
+
+EXE = os.getenv("EXE")

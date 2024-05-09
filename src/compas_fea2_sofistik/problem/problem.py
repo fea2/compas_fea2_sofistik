@@ -6,13 +6,13 @@ import os
 import subprocess
 import json
 
+import compas_fea2
+import compas_fea2_sofistik
 from compas_fea2.problem.problem import Problem
-from compas_fea2.problem import _Step
+from compas_fea2.problem import Step
 
 from compas_fea2.utilities._utils import timer
 from compas_fea2.utilities._utils import launch_process
-from .. import BACKEND_HERE
-
 class SofistikProblem(Problem):
     """Sofistik implementation of :class:`compas_fea2.problem.problem.Problem`.\n
     """
@@ -21,7 +21,7 @@ class SofistikProblem(Problem):
     def __init__(self, name=None, description=None, **kwargs):
         super(SofistikProblem, self).__init__(name=name, description=description, **kwargs)
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         return """
 $ STEPS
 {}
@@ -40,7 +40,7 @@ stre
 lc 1000
 beam type beam
 end
-        """.format('\n'.join([step._generate_jobdata() for step in self.steps]))
+        """.format('\n'.join([step.jobdata() for step in self.steps]))
 
 
     @timer(message='Analysis completed in')
@@ -75,13 +75,10 @@ end
         print('\nBegin the analysis...')
         path = self._check_analysis_path(path)
         input_file = self.write_input_file(path)
+        exe = exe or compas_fea2_sofistik.EXE
 
-        with open(os.path.join(BACKEND_HERE, "settings.json"), 'r') as f:
-            settings=json.load(f)
-
-        sofistik_path = exe or settings["solver_path"]
         solver = "sps.exe" if shell else "wps.exe"
-        solver_path = os.path.join(sofistik_path, solver)
+        solver_path = os.path.join(exe, solver)
 
         popenargs = [solver_path, input_file.path]
         if verbose:

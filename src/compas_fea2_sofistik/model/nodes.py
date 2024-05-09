@@ -18,7 +18,7 @@ class SofistikNode(Node):
     def __init__(self, xyz, mass=None, name=None, **kwargs):
         super(SofistikNode, self).__init__(xyz=xyz, mass=mass, name=name, **kwargs)
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         """Generate the jobdata for the input file of the command
         'NODE - Nodes, Coordinates and Constraints' defined in the SOFiSTiK
         programme module SOFiMSHA.

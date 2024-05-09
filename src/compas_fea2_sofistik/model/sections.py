@@ -32,7 +32,7 @@ class SofistikAngleSection(AngleSection):
         super(SofistikAngleSection, self).__init__(w=w, h=h, t=t, material=material, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -49,7 +49,7 @@ class SofistikBeamSection(BeamSection):
     def __init__(self, *, A, Ixx, Iyy, Ixy, Avx, Avy, J, g0, gw, material, name=None, **kwargs):
         super(SofistikBeamSection, self).__init__(A=A, Ixx=Ixx, Iyy=Iyy, Ixy=Ixy, Avx=Avx, Avy=Avy, J=J, g0=g0, gw=gw, material=material, name=name, **kwargs)
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         return "SVAL NO {} MNO {} A {} IZ {} IY {} IYZ {} AZ {} AY {} IT {} G0? {} GW? {}".format(self.key+1,
                                                                                                   self.material.key+1,
                                                                                                   self.A,
@@ -76,7 +76,7 @@ class SofistikBoxSection(BoxSection):
     def __init__(self, w, h, tw, tf, material, name=None, **kwargs):
         super(SofistikBoxSection, self).__init__(w=w, h=h, tw=tw, tf=tf, material=material, name=name, **kwargs)
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         return "SREC no {}  h {}  b {} mno {} ToFindEquivalentOftw {} ToFindEquivalentOftf {}".format(self.key+1,
                                                                                                       self.h,
                                                                                                       self.w,
@@ -93,7 +93,7 @@ class SofistikCircularSection(CircularSection):
     def __init__(self, r, material, name=None, **kwargs):
         super(SofistikCircularSection, self).__init__(r=r, material=material, name=name, **kwargs)
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         """Generates the common string information for the input file of the command
         'SCIT - Circular and Tube Section' defined in the SOFiSTiK programme module AQUA.
 
@@ -124,7 +124,7 @@ class SofistikHexSection(HexSection):
         super(SofistikHexSection, self).__init__(r=r, t=t, material=material, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -137,7 +137,7 @@ class SofistikISection(ISection):
         super(SofistikISection, self).__init__(w=w, h=h, tw=tw, tf=tf, material=material, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -150,7 +150,7 @@ class SofistikMassSection(MassSection):
         super(SofistikMassSection, self).__init__(mass=mass, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -163,7 +163,7 @@ class SofistikMembraneSection(MembraneSection):
         super(SofistikMembraneSection, self).__init__(t=t, material=material, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -176,7 +176,7 @@ class SofistikPipeSection(PipeSection):
         super(SofistikPipeSection, self).__init__(r=r, t=t, material=material, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -188,7 +188,7 @@ class SofistikRectangularSection(RectangularSection):
     def __init__(self, w, h, material, name=None, **kwargs):
         super(SofistikRectangularSection, self).__init__(w=w, h=h, material=material, name=name, **kwargs)
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         """Generates the common string information for the input file of the command
         'SREC - Rectangle, T-Beam, Plate' defined in the SOFiSTiK programme module AQUA.
 
@@ -203,8 +203,8 @@ class SofistikRectangularSection(RectangularSection):
         """
 
         return "SREC NO {} H {} B {} MNO {}".format(self.key+1,
-                                                    self.h,
-                                                    self.w,
+                                                    self._h,
+                                                    self._w,
                                                     self.material.key+1)
 
 
@@ -217,7 +217,7 @@ class SofistikShellSection(ShellSection):
         super(SofistikShellSection, self).__init__(t=t, material=material, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -230,7 +230,7 @@ class SofistikSolidSection(SolidSection):
         super(SofistikSolidSection, self).__init__(material=material, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -243,7 +243,7 @@ class SofistikSpringSection(SpringSection):
         super(SofistikSpringSection, self).__init__(forces=forces, displacements=displacements, stiffness=stiffness, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -256,7 +256,7 @@ class SofistikStrutSection(StrutSection):
         super(SofistikStrutSection, self).__init__(A=A, material=material, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -269,7 +269,7 @@ class SofistikTieSection(TieSection):
         super(SofistikTieSection, self).__init__(A=A, material=material, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -282,7 +282,7 @@ class SofistikTrapezoidalSection(TrapezoidalSection):
         super(SofistikTrapezoidalSection, self).__init__(w1=w1, w2=w2, h=h, material=material, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -295,5 +295,5 @@ class SofistikTrussSection(TrussSection):
         super(SofistikTrussSection, self).__init__(A=A, material=material, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError

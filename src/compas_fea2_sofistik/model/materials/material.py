@@ -17,7 +17,7 @@ class SofistikElasticIsotropic(ElasticIsotropic):
     def __init__(self, *, E, v, density, expansion=None, name=None, **kwargs):
         super(SofistikElasticIsotropic, self).__init__(E=E, v=v, density=density, expansion=expansion, name=name, **kwargs)
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         """Generates the common string information for the input file of the command
         'MAT - General Material Properties' defined in the SOFiSTiK programme module AQUA.
 
@@ -28,7 +28,7 @@ class SofistikElasticIsotropic(ElasticIsotropic):
         E : ---
             Elastic Modulus
         MUE : ---
-            Poisson's ratio 
+            Poisson's ratio
         G : ---
             Shear modulus
         GAM : --
@@ -57,7 +57,7 @@ class SofistikElasticOrthotropic(ElasticOrthotropic):
                                                          Gxy=Gxy, Gyz=Gyz, Gzx=Gzx, density=density, expansion=expansion, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -70,7 +70,7 @@ class SofistikElasticPlastic(ElasticPlastic):
         super(SofistikElasticPlastic, self).__init__(E=E, v=v, density=density, strain_stress=strain_stress, expansion=expansion, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -83,7 +83,7 @@ class SofistikStiff(Stiff):
         super(SofistikStiff, self).__init__(name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 
@@ -96,5 +96,5 @@ class SofistikUserMaterial(UserMaterial):
         super(SofistikUserMaterial, self).__init__(name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError

@@ -13,6 +13,6 @@ class SofistikDynamicStep(DynamicStep):
         super(SofistikDynamicStep, self).__init__(name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 

@@ -18,7 +18,7 @@ class SofistikBucklingAnalysis(BucklingAnalysis):
         super(SofistikBucklingAnalysis, self).__init__(modes=modes, vectors=vectors, iterations=iterations, algorithm=algorithm, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 class SofistikComplexEigenValue(ComplexEigenValue):
@@ -30,7 +30,7 @@ class SofistikComplexEigenValue(ComplexEigenValue):
         super(SofistikComplexEigenValue, self).__init__(name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 class SofistikLinearStaticPerturbation(LinearStaticPerturbation):
@@ -42,7 +42,7 @@ class SofistikLinearStaticPerturbation(LinearStaticPerturbation):
         super(SofistikLinearStaticPerturbation, self).__init__(name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 class SofistikModalAnalysis(ModalAnalysis):
@@ -54,7 +54,7 @@ class SofistikModalAnalysis(ModalAnalysis):
         super(SofistikModalAnalysis, self).__init__(modes=modes, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 class SofistikStedyStateDynamic(StedyStateDynamic):
@@ -66,7 +66,7 @@ class SofistikStedyStateDynamic(StedyStateDynamic):
         super(SofistikStedyStateDynamic, self).__init__(name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 class SofistikSubstructureGeneration(SubstructureGeneration):
@@ -78,6 +78,6 @@ class SofistikSubstructureGeneration(SubstructureGeneration):
         super(SofistikSubstructureGeneration, self).__init__(name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 

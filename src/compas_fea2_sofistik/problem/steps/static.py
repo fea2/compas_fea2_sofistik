@@ -16,7 +16,7 @@ class SofistikStaticRiksStep(StaticRiksStep):
         super(SofistikStaticRiksStep, self).__init__(max_increments=max_increments, initial_inc_size=initial_inc_size, min_inc_size=min_inc_size, time=time, nlgeom=nlgeom, modify=modify, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 class SofistikStaticStep(StaticStep):
@@ -28,13 +28,13 @@ class SofistikStaticStep(StaticStep):
         super(SofistikStaticStep, self).__init__(max_increments=max_increments, initial_inc_size=initial_inc_size, min_inc_size=min_inc_size, time=time, nlgeom=nlgeom, modify=modify, name=name, **kwargs)
         self._stype = 'Static'
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         return"""
 $ LOADS and DISPLACEMENTS
-+prog sofiload
++PROG SOFILOAD
 LC {} TITL '{}'
 
-head loads
+HEAD loads
 {}
 end
 
@@ -42,5 +42,7 @@ $DISPLACEMENTS
 {}
 """.format(self.key+1,
            self.name,
-           "\n".join([pattern.load._generate_jobdata(pattern.distribution) for pattern in self.loads]) or "$None",
-           "\n".join([pattern.load._generate_jobdata(pattern.distribution) for pattern in self.displacements]) or "$None")
+           self.combination.jobdata(),
+           "$None")
+
+

@@ -14,7 +14,7 @@ class SofistikInitialStressField(InitialStressField):
         super(SofistikInitialStressField, self).__init__(stress=stress, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 class SofistikInitialTemperatureField(InitialTemperatureField):
@@ -26,6 +26,6 @@ class SofistikInitialTemperatureField(InitialTemperatureField):
         super(SofistikInitialTemperatureField, self).__init__(temperature=temperature, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 

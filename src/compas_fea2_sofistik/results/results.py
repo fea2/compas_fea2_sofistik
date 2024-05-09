@@ -2,30 +2,33 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from compas_fea2.results.results import Results
-from compas_fea2.results.results import StepResults
 
-class SofistikResults(Results):
-    """Sofistik implementation of :class:`compas_fea2.results.results.Results`.\n
-    """
-    __doc__ += Results.__doc__
+from compas_fea2.results import Result, DisplacementResult, StressResult
+from compas_fea2.results import DisplacementFieldResults, StressFieldResults
 
-    def __init__(self, *, database_path, database_name):
-        super(SofistikResults, self).__init__(database_path=database_path, database_name=database_name)
-        raise NotImplementedError
+class SofistikResult(Result):
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
+    def __init__(self, location, name=None, *args, **kwargs):
+        super(SofistikResult, self).__init__(location, name=name, *args, **kwargs)
 
-class SofistikStepResults(StepResults):
-    """Sofistik implementation of :class:`compas_fea2.results.results.StepResults`.\n
-    """
-    __doc__ += StepResults.__doc__
 
-    def __init__(self, name=None, **kwargs):
-        super(SofistikStepResults, self).__init__(name=name, **kwargs)
-        raise NotImplementedError
+class SofistikDisplacementResult(DisplacementResult):
 
-    def _generate_jobdata(self):
-        raise NotImplementedError
+    def __init__(self, location, u1=0., u2=0., u3=0., name=None, *args, **kwargs):
+        super(SofistikDisplacementResult, self).__init__(location, u1, u2, u3, name=name, *args, **kwargs)
+
+
+class SofistikStressResult(StressResult):
+
+    def __init__(self, location, local_stress_tensor, name=None, *args, **kwargs):
+        super(SofistikStressResult, self).__init__(location, local_stress_tensor, name=name, *args, **kwargs)
+
+
+class SofistikDisplacementFieldResults(DisplacementFieldResults):
+    def __init__(self, problem, name=None, *args, **kwargs):
+        super(SofistikDisplacementFieldResults, self).__init__(problem, name=name, *args, **kwargs)
+
+class SofistikStressFieldResults(StressFieldResults):
+    def __init__(self, problem, name=None, *args, **kwargs):
+        super(SofistikStressFieldResults, self).__init__(problem, name, *args, **kwargs)
 

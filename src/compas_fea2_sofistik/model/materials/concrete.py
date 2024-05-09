@@ -15,7 +15,7 @@ class SofistikConcrete(Concrete):
         super(SofistikConcrete, self).__init__(fck=fck, v=v, density=density, fr=fr, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 class SofistikConcreteDamagedPlasticity(ConcreteDamagedPlasticity):
@@ -27,7 +27,7 @@ class SofistikConcreteDamagedPlasticity(ConcreteDamagedPlasticity):
         super(SofistikConcreteDamagedPlasticity, self).__init__(E=E, v=v, density=density, damage=damage, hardening=hardening, stiffening=stiffening, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 class SofistikConcreteSmearedCrack(ConcreteSmearedCrack):
@@ -39,6 +39,6 @@ class SofistikConcreteSmearedCrack(ConcreteSmearedCrack):
         super(SofistikConcreteSmearedCrack, self).__init__(E=E, v=v, density=density, fc=fc, ec=ec, ft=ft, et=et, fr=fr, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 

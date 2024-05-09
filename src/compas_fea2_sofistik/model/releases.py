@@ -14,7 +14,7 @@ class SofistikBeamEndPinRelease(BeamEndPinRelease):
         super(SofistikBeamEndPinRelease, self).__init__(m1=m1, m2=m2, t=t, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 
 class SofistikBeamEndSliderRelease(BeamEndSliderRelease):
@@ -26,6 +26,6 @@ class SofistikBeamEndSliderRelease(BeamEndSliderRelease):
         super(SofistikBeamEndSliderRelease, self).__init__(v1=v1, v2=v2, name=name, **kwargs)
         raise NotImplementedError
 
-    def _generate_jobdata(self):
+    def jobdata(self):
         raise NotImplementedError
 

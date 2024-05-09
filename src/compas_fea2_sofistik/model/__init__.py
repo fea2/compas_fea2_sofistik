@@ -2,12 +2,15 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+from .bcs import SofistikFixedBC
+from .bcs import SofistikFixedBCX
+from .bcs import SofistikFixedBCY
+from .bcs import SofistikFixedBCZ
+from .bcs import SofistikGeneralBC
+from .bcs import SofistikPinnedBC
 from .bcs import SofistikClampBCXX
 from .bcs import SofistikClampBCYY
 from .bcs import SofistikClampBCZZ
-from .bcs import SofistikFixedBC
-from .bcs import SofistikGeneralBC
-from .bcs import SofistikPinnedBC
 from .bcs import SofistikRollerBCX
 from .bcs import SofistikRollerBCXY
 from .bcs import SofistikRollerBCXZ
@@ -16,7 +19,6 @@ from .bcs import SofistikRollerBCYZ
 from .bcs import SofistikRollerBCZ
 
 from .constraints import SofistikBeamMPC
-from .constraints import SofistikMultiPointConstraint
 from .constraints import SofistikTieConstraint
 from .constraints import SofistikTieMPC
 
