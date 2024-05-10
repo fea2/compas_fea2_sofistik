@@ -147,10 +147,28 @@ class SofistikTetrahedronElement(TetrahedronElement):
 
     def __init__(self, *, nodes, section, implementation=None, name=None, **kwargs):
         super(SofistikTetrahedronElement, self).__init__(nodes=nodes, section=section, implementation=implementation, name=name, **kwargs)
-        raise NotImplementedError
 
     def jobdata(self):
-        raise NotImplementedError
+        nodes = []
+        for c, n in enumerate(self.nodes, 1):
+            if c!=4:
+                nodes.append(f"N{c} "+str(n.key+1))
+            else:
+                nodes.append(f"N4 0 N{c+1} "+str(n.key+1))
+        nodes = " ".join(nodes)
+        return f"BRIC {self.key+1} {nodes} MNO {self.section.material.key+1}"
+
+class SofistikHexhedronElement(HexahedronElement):
+    """Sofistik implementation of :class:`compas_fea2.model.elements.HexahedronElement`.\n
+    """
+    __doc__ += HexahedronElement.__doc__
+
+    def __init__(self, *, nodes, section, implementation=None, name=None, **kwargs):
+        super(SofistikHexhedronElement, self).__init__(nodes=nodes, section=section, implementation=implementation, name=name, **kwargs)
+
+    def jobdata(self):
+        nodes = " ".join(f"N{c} "+str(n.key+1) for c, n in enumerate(self.nodes, 1))
+        return f"BRIC {self.key+1} {nodes} MNO {self.section.material.key+1}"
 
 class SofistikTieElement(TieElement):
     """Sofistik implementation of :class:`compas_fea2.model.elements.TieElement`.\n

@@ -228,11 +228,9 @@ class SofistikSolidSection(SolidSection):
 
     def __init__(self, material, name=None, **kwargs):
         super(SofistikSolidSection, self).__init__(material=material, name=name, **kwargs)
-        raise NotImplementedError
 
     def jobdata(self):
-        raise NotImplementedError
-
+        return ""
 
 class SofistikSpringSection(SpringSection):
     """Sofistik implementation of :class:`compas_fea2.model.sections.SpringSection`.\n
