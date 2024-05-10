@@ -218,7 +218,7 @@ class SofistikShellSection(ShellSection):
 
 
     def jobdata(self):
-        return f"SNO {self.key+1} MNO {self.material.key+1} STYP SLAB T {self.t}"
+        return ""
 
 
 class SofistikSolidSection(SolidSection):

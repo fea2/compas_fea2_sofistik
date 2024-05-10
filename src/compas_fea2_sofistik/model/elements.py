@@ -109,18 +109,12 @@ class SofistikShellElement(ShellElement):
     """
     __doc__ += ShellElement.__doc__
 
-    def __init__(self, *, nodes, frame=None, section=None, implementation=None, rigid=False, name=None, **kwargs):
-        super(SofistikShellElement, self).__init__(nodes=nodes, section=section, implementation=implementation, rigid=rigid, name=name, **kwargs)
+    def __init__(self, *, nodes, section=None, rigid=False, name=None, **kwargs):
+        super(SofistikShellElement, self).__init__(nodes=nodes, section=section, rigid=rigid, name=name, **kwargs)
 
     def jobdata(self):
-        try:
-            return getattr(self, '_'+self._implementation.lower())()
-        except:
-            raise ValueError('{} is not a valid implementation.'.format(self._implementation))
-
-    def _quad(self):
-        nodes = " ".join(str(n.key+1) for n in self.nodes)
-        return f"QUAD {self.key+1} NODES {nodes}"
+        nodes = " ".join(f"N{c} "+str(n.key+1) for c, n in enumerate(self.nodes, 1))
+        return f"QUAD {self.key+1} {nodes} MNO {self.section.material.key+1} T {self.section.t}"
 
 class SofistikSpringElement(SpringElement):
     """Sofistik implementation of :class:`compas_fea2.model.elements.SpringElement`.\n
