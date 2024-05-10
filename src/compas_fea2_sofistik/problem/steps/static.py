@@ -32,15 +32,14 @@ class SofistikStaticStep(StaticStep):
         return"""
 $ LOADS and DISPLACEMENTS
 +PROG SOFILOAD
-LC {} TITL '{}'
-
 HEAD loads
+LC {} TITL '{}'
 {}
 end
 
 $DISPLACEMENTS
 {}
-""".format(self.key+1,
+""".format(1, # CHANGE
            self.name,
            self.combination.jobdata(),
            "$None")

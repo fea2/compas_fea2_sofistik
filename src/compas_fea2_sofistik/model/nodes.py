@@ -32,7 +32,7 @@ class SofistikNode(Node):
         str
             input file data line.
         """
-        return """NODE NO {} X {} Y {} Z {}""".format(self.key+1,
+        return """NODE {} X {} Y {} Z {}""".format(self.key+1,
                                                       self.x,
                                                       self.y,
                                                       self.z)

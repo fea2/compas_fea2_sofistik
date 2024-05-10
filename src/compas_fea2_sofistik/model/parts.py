@@ -28,7 +28,7 @@ $ SECTIONS
 
 END
 
-+PROG SOFIMSHC
++PROG SOFIMSHA
 HEAD Geometry
 syst spac gdir negz gdiv 10000
 

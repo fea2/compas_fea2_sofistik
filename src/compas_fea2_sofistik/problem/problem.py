@@ -29,16 +29,7 @@ $ STEPS
 $ ANALYSIS
 +prog ase
 head analysis
-syst prob line
-lc no 1000  titl 'linear analysis test load'
-lcc no 1  fact 1.0
-end
-
-+prog aqb
-head stresses
-stre
-lc 1000
-beam type beam
+LC 1
 end
         """.format('\n'.join([step.jobdata() for step in self.steps]))
 

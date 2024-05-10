@@ -1,0 +1,16 @@
+
+
+!: Denotes a comment. Anything after this symbol on the same line is considered a comment and is ignored by the program.
++: Indicates the start of a new SOFiSTiK program or subprogram.
+-: Indicates the end of a program or subprogram.
+=: Used for assigning values.
+:: Separates parameters in command lines.
+(): Encloses expressions or parameters.
+{}: Encloses groups of commands or options.
+[]: Denotes optional parameters or options.
+|: Separates options within a parameter.
+$: Used to define variables.
+&: Used in conjunction with variables.
+#: Indicates a command line directive.
+/: Denotes a continuation of a command or option on the next line.
+%: Used in combination with numbers to define percentages.

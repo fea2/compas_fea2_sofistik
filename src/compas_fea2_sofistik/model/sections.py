@@ -215,10 +215,10 @@ class SofistikShellSection(ShellSection):
 
     def __init__(self, t, material, name=None, **kwargs):
         super(SofistikShellSection, self).__init__(t=t, material=material, name=name, **kwargs)
-        raise NotImplementedError
+
 
     def jobdata(self):
-        raise NotImplementedError
+        return f"SNO {self.key+1} MNO {self.material.key+1} STYP SLAB T {self.t}"
 
 
 class SofistikSolidSection(SolidSection):
