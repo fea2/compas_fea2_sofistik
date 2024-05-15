@@ -18,6 +18,10 @@ class SofistikNode(Node):
     def __init__(self, xyz, mass=None, name=None, **kwargs):
         super(SofistikNode, self).__init__(xyz=xyz, mass=mass, name=name, **kwargs)
 
+    @property
+    def input_key(self):
+        return self._key+1+self.part.key*1_000_000
+
     def jobdata(self):
         """Generate the jobdata for the input file of the command
         'NODE - Nodes, Coordinates and Constraints' defined in the SOFiSTiK
@@ -32,7 +36,7 @@ class SofistikNode(Node):
         str
             input file data line.
         """
-        return """NODE {} X {} Y {} Z {}""".format(self.key+1,
+        return """NODE {} X {} Y {} Z {}""".format(self.input_key,
                                                       self.x,
                                                       self.y,
                                                       self.z)

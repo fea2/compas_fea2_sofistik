@@ -34,7 +34,7 @@ def _jobdata(obj, nodes):
         input file data string
     """
     comp = {'x':'PX','y':'PY','z':'PZ','xx':'MX','yy':'MY','zz':'MZ'}
-    return "\n".join(["NODE NO {} FIX {}".format(node.key+1,
+    return "\n".join(["NODE NO {} FIX {}".format(node.input_key,
                                            ','.join([comp[c] for c in comp if getattr(obj, c)]))
                 for node in nodes])
 

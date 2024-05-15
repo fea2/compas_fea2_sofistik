@@ -19,6 +19,7 @@ class SofistikStaticRiksStep(StaticRiksStep):
     def jobdata(self):
         raise NotImplementedError
 
+
 class SofistikStaticStep(StaticStep):
     """Sofistik implementation of :class:`compas_fea2.problem.steps.static.StaticStep`.\n
     """
@@ -27,21 +28,27 @@ class SofistikStaticStep(StaticStep):
     def __init__(self, max_increments=100, initial_inc_size=1, min_inc_size=1e-05, time=1, nlgeom=False, modify=True, name=None, **kwargs):
         super(SofistikStaticStep, self).__init__(max_increments=max_increments, initial_inc_size=initial_inc_size, min_inc_size=min_inc_size, time=time, nlgeom=nlgeom, modify=modify, name=name, **kwargs)
         self._stype = 'Static'
+        self._nlgeom = nlgeom or 'line'
 
     def jobdata(self):
         return"""
 $ LOADS and DISPLACEMENTS
 +PROG SOFILOAD
 HEAD loads
-LC {} TITL '{}'
-{}
+LC {0} TITL '{1}'
+{2}
 end
 
-$DISPLACEMENTS
-{}
+$ ANALYSIS
++prog ase
+syst prob {3}
+head analysis
+LC {0}
+end
 """.format(1, # CHANGE
            self.name,
            self.combination.jobdata(),
-           "$None")
+           self._nlgeom,
+           )
 
 

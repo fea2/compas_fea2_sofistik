@@ -17,6 +17,10 @@ class SofistikElasticIsotropic(ElasticIsotropic):
     def __init__(self, *, E, v, density, expansion=None, name=None, **kwargs):
         super(SofistikElasticIsotropic, self).__init__(E=E, v=v, density=density, expansion=expansion, name=name, **kwargs)
 
+    @property
+    def input_key(self):
+        return self._key+1
+
     def jobdata(self):
         """Generates the common string information for the input file of the command
         'MAT - General Material Properties' defined in the SOFiSTiK programme module AQUA.

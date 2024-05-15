@@ -49,9 +49,13 @@ class SofistikBeamSection(BeamSection):
     def __init__(self, *, A, Ixx, Iyy, Ixy, Avx, Avy, J, g0, gw, material, name=None, **kwargs):
         super(SofistikBeamSection, self).__init__(A=A, Ixx=Ixx, Iyy=Iyy, Ixy=Ixy, Avx=Avx, Avy=Avy, J=J, g0=g0, gw=gw, material=material, name=name, **kwargs)
 
+    @property
+    def input_key(self):
+        return self._key+1+self.part.key*1_000_000
+
     def jobdata(self):
-        return "SVAL NO {} MNO {} A {} IZ {} IY {} IYZ {} AZ {} AY {} IT {} G0? {} GW? {}".format(self.key+1,
-                                                                                                  self.material.key+1,
+        return "SVAL NO {} MNO {} A {} IZ {} IY {} IYZ {} AZ {} AY {} IT {} G0? {} GW? {}".format(self.input_key,
+                                                                                                  self.material.input_key,
                                                                                                   self.A,
                                                                                                   self.Ixx,
                                                                                                   self.Iyy,
@@ -76,11 +80,15 @@ class SofistikBoxSection(BoxSection):
     def __init__(self, w, h, tw, tf, material, name=None, **kwargs):
         super(SofistikBoxSection, self).__init__(w=w, h=h, tw=tw, tf=tf, material=material, name=name, **kwargs)
 
+    @property
+    def input_key(self):
+        return self._key+1+self.part.key*1_000_000
+
     def jobdata(self):
-        return "SREC no {}  h {}  b {} mno {} ToFindEquivalentOftw {} ToFindEquivalentOftf {}".format(self.key+1,
+        return "SREC no {}  h {}  b {} mno {} ToFindEquivalentOftw {} ToFindEquivalentOftf {}".format(self.input_key,
                                                                                                       self.h,
                                                                                                       self.w,
-                                                                                                      self.material.key+1,
+                                                                                                      self.material.input_key,
                                                                                                       self.tw,
                                                                                                       self.tf)
 
@@ -92,6 +100,10 @@ class SofistikCircularSection(CircularSection):
 
     def __init__(self, r, material, name=None, **kwargs):
         super(SofistikCircularSection, self).__init__(r=r, material=material, name=name, **kwargs)
+
+    @property
+    def input_key(self):
+        return self._key+1+self.part.key*1_000_000
 
     def jobdata(self):
         """Generates the common string information for the input file of the command
@@ -110,9 +122,9 @@ class SofistikCircularSection(CircularSection):
         str
             Input file data line.
         """
-        return "SCIT NO {} D {} MNO {}".format(self.key+1,
+        return "SCIT NO {} D {} MNO {}".format(self.input_key,
                                                  2*self.r,
-                                                 self.material.key+1)
+                                                 self.material.input_key)
 
 
 class SofistikHexSection(HexSection):
@@ -188,6 +200,10 @@ class SofistikRectangularSection(RectangularSection):
     def __init__(self, w, h, material, name=None, **kwargs):
         super(SofistikRectangularSection, self).__init__(w=w, h=h, material=material, name=name, **kwargs)
 
+    @property
+    def input_key(self):
+        return self._key+1
+
     def jobdata(self):
         """Generates the common string information for the input file of the command
         'SREC - Rectangle, T-Beam, Plate' defined in the SOFiSTiK programme module AQUA.
@@ -202,10 +218,10 @@ class SofistikRectangularSection(RectangularSection):
             Input file data line.
         """
 
-        return "SREC NO {} H {} B {} MNO {}".format(self.key+1,
+        return "SREC NO {} H {} B {} MNO {}".format(self.input_key,
                                                     self._h,
                                                     self._w,
-                                                    self.material.key+1)
+                                                    self.material.input_key)
 
 
 class SofistikShellSection(ShellSection):

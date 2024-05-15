@@ -25,13 +25,8 @@ class SofistikProblem(Problem):
         return """
 $ STEPS
 {}
-
-$ ANALYSIS
-+prog ase
-head analysis
-LC 1
-end
-        """.format('\n'.join([step.jobdata() for step in self.steps]))
+        """.format('\n'.join([step.jobdata() for step in self.steps])
+                   )
 
 
     @timer(message='Analysis completed in')

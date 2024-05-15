@@ -17,30 +17,10 @@ class SofistikDeformablePart(DeformablePart):
         """Generate the jobdata string
         """
         return """
-+PROG AQUA
-HEAD Materials and Sections
 
-$ MATERIALS
-{}
 
-$ SECTIONS
-{}
 
-END
-
-+PROG SOFIMSHA
-HEAD Geometry
-syst spac gdir negz gdiv 10000
-
-$ NODES
-{}
-
-$ ELEMENTS
-{}
-
-end
-""".format("\n".join([material.jobdata() for material in self.materials]),
-            "\n".join([section.jobdata() for section in self.sections]),
+""".format(
             "\n".join([node.jobdata() for node in self.nodes]),
             "\n".join([element.jobdata() for element in self.elements])
             )

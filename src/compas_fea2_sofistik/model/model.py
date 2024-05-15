@@ -14,12 +14,28 @@ class SofistikModel(Model):
 
     def jobdata(self):
         return """
++PROG AQUA
 $ PARTS
+
+HEAD Materials and Sections
+$ MATERIALS
 {}
+$ SECTIONS
+{}
+end
+
++prog sofimsha
+HEAD Geometry
+syst spac gdir negz gdiv 10000
+$ NODES
+{}
+$ ELEMENTS
+{}
+$ CONNECTORS
+{}
+end
 
 $ ICs
-{}
-
 $ BCs
 +prog sofimsha
 head Constraints
@@ -29,8 +45,11 @@ ctrl rest 2
 
 end
 """.format(
-        "\n".join([part.jobdata() for part in self.parts]),
-        "\n".join([ic.jobdata() for ic in self.ics]),
+        "\n".join([material.jobdata() for material in self.materials]),
+        "\n".join([section.jobdata() for section in self.sections]),
+        "\n".join([node.jobdata() for node in self.nodes]),
+        "\n".join([element.jobdata() for element in self.elements]),
+        "\n".join([connector.jobdata() for connector in self.connectors]),
         "\n".join([bc.jobdata(nodes) for bc, nodes in self.bcs.items()]),
            )
 

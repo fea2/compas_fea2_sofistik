@@ -22,6 +22,8 @@ from .constraints import SofistikBeamMPC
 from .constraints import SofistikTieConstraint
 from .constraints import SofistikTieMPC
 
+from .connectors import SofistikSpringConnector
+
 from .elements import SofistikBeamElement
 from .elements import SofistikFace
 from .elements import SofistikHexahedronElement

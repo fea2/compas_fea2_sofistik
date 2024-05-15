@@ -41,6 +41,10 @@ class SofistikBeamElement(BeamElement):
             nodes=nodes, section=section, frame=frame, implementation=implementation, name=name, **kwargs
         )
 
+    @property
+    def input_key(self):
+        return self._key+1+self.part.key*1_000_000
+
     def jobdata(self):
         """Generate the jobdata for Beam Elements in the SOFiSTiK. This is part
         of the programme module SOFiMSHA.
@@ -56,7 +60,7 @@ class SofistikBeamElement(BeamElement):
         """
 
         return "BEAM NO {} NA {} NE {} NCS {} DIV 1".format(
-            self.key + 1, self.nodes[0].key + 1, self.nodes[1].key + 1, self.section.key + 1
+            self.input_key, self.nodes[0].input_key, self.nodes[1].input_key, self.section.input_key
         )
 
 
@@ -110,13 +114,17 @@ class SofistikSpringElement(SpringElement):
 
     __doc__ += SpringElement.__doc__
 
-    def __init__(self, *, nodes, section, frame=None, implementation=None, name=None, **kwargs):
+    def __init__(self, nodes, section, implementation=None, name=None, **kwargs):
         super(SofistikSpringElement, self).__init__(
-            nodes=nodes, section=section, frame=frame, implementation=implementation, name=name, **kwargs
+            nodes=nodes, section=section, implementation=implementation, name=name, **kwargs
         )
 
+    @property
+    def input_key(self):
+        return self._key+1+self.part.key*1_000_000
+
     def jobdata(self):
-        return f"SPRI QGRP {self.nodes[0].key+1} {self.nodes[-1].key+1} CP 2000.0 2000.0 CRAC 0"
+        return f"SPRI NA {self.nodes[0].input_key} NE {self.nodes[-1].input_key} CP 2000.0 2000.0 CRAC 0"
 
 
 class SofistikFace(Face):
@@ -155,9 +163,13 @@ class SofistikShellElement(ShellElement):
     def __init__(self, *, nodes, section=None, rigid=False, name=None, **kwargs):
         super(SofistikShellElement, self).__init__(nodes=nodes, section=section, rigid=rigid, name=name, **kwargs)
 
+    @property
+    def input_key(self):
+        return self._key+1+self.part.key*1_000_000
+
     def jobdata(self):
         nodes = " ".join(f"N{c} " + str(n.key + 1) for c, n in enumerate(self.nodes, 1))
-        return f"QUAD {self.key+1} {nodes} MNO {self.section.material.key+1} T {self.section.t}"
+        return f"QUAD {self.input_key} {nodes} MNO {self.section.material.input_key} T {self.section.t}"
 
 
 class SofistikTetrahedronElement(TetrahedronElement):
@@ -170,15 +182,19 @@ class SofistikTetrahedronElement(TetrahedronElement):
             nodes=nodes, section=section, implementation=implementation, name=name, **kwargs
         )
 
+    @property
+    def input_key(self):
+        return self._key+1+self.part.key*1_000_000
+
     def jobdata(self):
         nodes = []
         for c, n in enumerate(self.nodes, 1):
             if c != 4:
-                nodes.append(f"N{c} " + str(n.key + 1))
+                nodes.append(f"N{c} " + str(n.input_key))
             else:
-                nodes.append(f"N4 0 N{c+1} " + str(n.key + 1))
+                nodes.append(f"N4 0 N{c+1} " + str(n.input_key))
         nodes = " ".join(nodes)
-        return f"BRIC {self.key+1} {nodes} MNO {self.section.material.key+1}"
+        return f"BRIC {self.input_key} {nodes} MNO {self.section.material.input_key}"
 
 
 class SofistikPentahedronElement(PentahedronElement):
@@ -205,7 +221,10 @@ class SofistikHexahedronElement(HexahedronElement):
         super(SofistikHexahedronElement, self).__init__(
             nodes=nodes, section=section, implementation=implementation, name=name, **kwargs
         )
+    @property
+    def input_key(self):
+        return self._key+1+self.part.key*1_000_000
 
     def jobdata(self):
-        nodes = " ".join(f"N{c} " + str(n.key + 1) for c, n in enumerate(self.nodes, 1))
-        return f"BRIC {self.key+1} {nodes} MNO {self.section.material.key+1}"
+        nodes = " ".join(f"N{c} " + str(n.input_key) for c, n in enumerate(self.nodes, 1))
+        return f"BRIC {self.input_key} {nodes} MNO {self.section.material.input_key}"
