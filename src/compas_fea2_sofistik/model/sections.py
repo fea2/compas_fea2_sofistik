@@ -49,10 +49,6 @@ class SofistikBeamSection(BeamSection):
     def __init__(self, *, A, Ixx, Iyy, Ixy, Avx, Avy, J, g0, gw, material, name=None, **kwargs):
         super(SofistikBeamSection, self).__init__(A=A, Ixx=Ixx, Iyy=Iyy, Ixy=Ixy, Avx=Avx, Avy=Avy, J=J, g0=g0, gw=gw, material=material, name=name, **kwargs)
 
-    @property
-    def input_key(self):
-        return self._key+1+self.part.key*1_000_000
-
     def jobdata(self):
         return "SVAL NO {} MNO {} A {} IZ {} IY {} IYZ {} AZ {} AY {} IT {} G0? {} GW? {}".format(self.input_key,
                                                                                                   self.material.input_key,
@@ -80,10 +76,6 @@ class SofistikBoxSection(BoxSection):
     def __init__(self, w, h, tw, tf, material, name=None, **kwargs):
         super(SofistikBoxSection, self).__init__(w=w, h=h, tw=tw, tf=tf, material=material, name=name, **kwargs)
 
-    @property
-    def input_key(self):
-        return self._key+1+self.part.key*1_000_000
-
     def jobdata(self):
         return "SREC no {}  h {}  b {} mno {} ToFindEquivalentOftw {} ToFindEquivalentOftf {}".format(self.input_key,
                                                                                                       self.h,
@@ -100,10 +92,6 @@ class SofistikCircularSection(CircularSection):
 
     def __init__(self, r, material, name=None, **kwargs):
         super(SofistikCircularSection, self).__init__(r=r, material=material, name=name, **kwargs)
-
-    @property
-    def input_key(self):
-        return self._key+1+self.part.key*1_000_000
 
     def jobdata(self):
         """Generates the common string information for the input file of the command
@@ -200,10 +188,6 @@ class SofistikRectangularSection(RectangularSection):
     def __init__(self, w, h, material, name=None, **kwargs):
         super(SofistikRectangularSection, self).__init__(w=w, h=h, material=material, name=name, **kwargs)
 
-    @property
-    def input_key(self):
-        return self._key+1
-
     def jobdata(self):
         """Generates the common string information for the input file of the command
         'SREC - Rectangle, T-Beam, Plate' defined in the SOFiSTiK programme module AQUA.
@@ -253,12 +237,11 @@ class SofistikSpringSection(SpringSection):
     """
     __doc__ += SpringSection.__doc__
 
-    def __init__(self, forces=None, displacements=None, stiffness=None, name=None, **kwargs):
-        super(SofistikSpringSection, self).__init__(forces=forces, displacements=displacements, stiffness=stiffness, name=name, **kwargs)
-        raise NotImplementedError
+    def __init__(self, axial, lateral, rotational, **kwargs):
+        super(SofistikSpringSection, self).__init__(axial, lateral, rotational, **kwargs)
 
     def jobdata(self):
-        raise NotImplementedError
+        return None
 
 
 class SofistikStrutSection(StrutSection):

@@ -11,7 +11,7 @@ class SofistikFieldOutput(FieldOutput):
     """
     __doc__ += FieldOutput.__doc__
 
-    def __init__(self, node_outputs, element_outputs, contact_outputs=None, name=None, **kwargs):
+    def __init__(self, node_outputs=None, element_outputs=None, contact_outputs=None, name=None, **kwargs):
         super(SofistikFieldOutput, self).__init__(node_outputs=node_outputs, element_outputs=element_outputs, contact_outputs=contact_outputs, name=name, **kwargs)
         if VERBOSE:
             print("NOTE: in Sofistik you cannto specify the field output. These are autmatically decided by the software.")

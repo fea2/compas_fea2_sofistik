@@ -182,10 +182,6 @@ class SofistikTetrahedronElement(TetrahedronElement):
             nodes=nodes, section=section, implementation=implementation, name=name, **kwargs
         )
 
-    @property
-    def input_key(self):
-        return self._key+1+self.part.key*1_000_000
-
     def jobdata(self):
         nodes = []
         for c, n in enumerate(self.nodes, 1):
@@ -221,9 +217,6 @@ class SofistikHexahedronElement(HexahedronElement):
         super(SofistikHexahedronElement, self).__init__(
             nodes=nodes, section=section, implementation=implementation, name=name, **kwargs
         )
-    @property
-    def input_key(self):
-        return self._key+1+self.part.key*1_000_000
 
     def jobdata(self):
         nodes = " ".join(f"N{c} " + str(n.input_key) for c, n in enumerate(self.nodes, 1))

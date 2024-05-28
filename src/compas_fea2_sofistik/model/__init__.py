@@ -23,6 +23,7 @@ from .constraints import SofistikTieConstraint
 from .constraints import SofistikTieMPC
 
 from .connectors import SofistikSpringConnector
+from .connectors import SofistikZeroLengthSpringConnector
 
 from .elements import SofistikBeamElement
 from .elements import SofistikFace
@@ -55,6 +56,7 @@ from .parts import SofistikRigidPart
 from .releases import SofistikBeamEndPinRelease
 from .releases import SofistikBeamEndSliderRelease
 
+from .sections import SofistikSpringSection
 from .sections import SofistikAngleSection
 from .sections import SofistikBeamSection
 from .sections import SofistikBoxSection

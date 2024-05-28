@@ -45,7 +45,7 @@ syst prob {3}
 head analysis
 LC {0}
 end
-""".format(1, # CHANGE
+""".format(1, #FIXME CHANGE
            self.name,
            self.combination.jobdata(),
            self._nlgeom,

@@ -39,8 +39,6 @@ __all__ = ["HOME", "DATA", "DOCS", "TEMP"]
 from pydoc import ErrorDuringImport
 import compas_fea2
 
-from compas.plugins import plugin
-
 # Models
 from compas_fea2.model import Model
 from compas_fea2.model import DeformablePart
@@ -58,6 +56,7 @@ from compas_fea2.model.elements import (
 )
 # Sections
 from compas_fea2.model.sections import (
+    SpringSection,
     AngleSection,
     BeamSection,
     BoxSection,
@@ -107,6 +106,7 @@ from compas_fea2.model.constraints import (
 # Connectors
 from compas_fea2.model.connectors import (
     SpringConnector,
+    ZeroLengthSpringConnector,
 )
 
 # Releases
@@ -207,6 +207,7 @@ try:
 
     # Sofistik Sections
     from .model.sections import (
+        SofistikSpringSection,
         SofistikAngleSection,
         SofistikBeamSection,
         SofistikBoxSection,
@@ -257,6 +258,7 @@ try:
     # Sofistik Connectors
     from .model.connectors import (
         SofistikSpringConnector,
+        SofistikZeroLengthSpringConnector,
     )
 
     # Sofistik release
@@ -353,6 +355,7 @@ try:
         backend[ShellElement] = SofistikShellElement
         backend[TetrahedronElement] = SofistikTetrahedronElement
 
+        backend[SpringSection] = SofistikSpringSection
         backend[AngleSection] = SofistikAngleSection
         backend[BeamSection] = SofistikBeamSection
         backend[BoxSection] = SofistikBoxSection
@@ -388,6 +391,7 @@ try:
         backend[TieConstraint] = SofistikTieConstraint
 
         backend[SpringConnector] = SofistikSpringConnector
+        backend[ZeroLengthSpringConnector] = SofistikZeroLengthSpringConnector
 
         backend[BeamEndPinRelease] = SofistikBeamEndPinRelease
 

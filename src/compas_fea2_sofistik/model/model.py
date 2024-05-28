@@ -11,6 +11,7 @@ class SofistikModel(Model):
 
     def __init__(self, *, name=None, description=None, author=None, **kwargs):
         super(SofistikModel, self).__init__(name=name, description=description, author=author, **kwargs)
+        self._starting_key = 1
 
     def jobdata(self):
         return """
