@@ -15,7 +15,6 @@ Sofistik
 
 """
 
-from __future__ import print_function
 
 import os
 from dotenv import load_dotenv
@@ -41,7 +40,7 @@ import compas_fea2
 
 # Models
 from compas_fea2.model import Model
-from compas_fea2.model import DeformablePart
+from compas_fea2.model import Part
 from compas_fea2.model import Node
 # Elements
 from compas_fea2.model.elements import (
@@ -191,7 +190,7 @@ from compas_fea2.job import (
 try:
     # Opensees Models
     from .model import SofistikModel
-    from .model import SofistikDeformablePart
+    from .model import SofistikPart
     from .model import SofistikNode
 
     # Sofistik Elements
@@ -344,7 +343,7 @@ try:
         backend = compas_fea2.BACKENDS['compas_fea2_sofistik']
 
         backend[Model] = SofistikModel
-        backend[DeformablePart] = SofistikDeformablePart
+        backend[Part] = SofistikPart
         backend[Node] = SofistikNode
 
         backend[MassElement] = SofistikMassElement

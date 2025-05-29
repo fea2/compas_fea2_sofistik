@@ -1,6 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 from .bcs import SofistikFixedBC
 from .bcs import SofistikFixedBCX
@@ -50,7 +47,7 @@ from .model import SofistikModel
 
 from .nodes import SofistikNode
 
-from .parts import SofistikDeformablePart
+from .parts import SofistikPart
 from .parts import SofistikRigidPart
 
 from .releases import SofistikBeamEndPinRelease

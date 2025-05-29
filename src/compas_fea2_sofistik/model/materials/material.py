@@ -1,6 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 from compas_fea2.model.materials.material import ElasticIsotropic
 from compas_fea2.model.materials.material import ElasticOrthotropic
@@ -18,7 +15,7 @@ class SofistikElasticIsotropic(ElasticIsotropic):
         super(SofistikElasticIsotropic, self).__init__(E=E, v=v, density=density, expansion=expansion, name=name, **kwargs)
 
     @property
-    def input_key(self):
+    def key(self):
         return self._key+1
 
     def jobdata(self):

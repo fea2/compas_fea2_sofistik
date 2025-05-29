@@ -1,6 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 from compas_fea2.model.connectors import SpringConnector
 from compas_fea2.model.connectors import ZeroLengthSpringConnector
@@ -15,7 +12,7 @@ class SofistikSpringConnector(SpringConnector):
         super(SofistikSpringConnector, self).__init__(nodes, section, yielding, failure, **kwargs)
 
     def jobdata(self):
-        return f"SPRI NA {self.nodes[0].input_key} NE {self.nodes[-1].input_key} DX 1 CP {self.section.axial} CT {self.section.lateral} CM {self.section.rotational} CRAC {self.failure['c']}"
+        return f"SPRI NA {self.nodes[0].key} NE {self.nodes[-1].key} DX 1 CP {self.section.axial} CT {self.section.lateral} CM {self.section.rotational} CRAC {self.failure['c']}"
 
 
 class SofistikZeroLengthSpringConnector(ZeroLengthSpringConnector):
@@ -36,4 +33,4 @@ class SofistikZeroLengthSpringConnector(ZeroLengthSpringConnector):
         return " ".join([k+" "+str(v) for k, v in d.items() if v!=0])
 
     def jobdata(self):
-        return f"SPRI NA {self.nodes[0].input_key} NE {self.nodes[-1].input_key} {self._to_string(self._direction_values())} {self._to_string(self._stiffness_values())} CRAC {self.failure['c']} MUE 1.1" #FIXME add remaining parameters
+        return f"SPRI NA {self.nodes[0].key} NE {self.nodes[-1].key} {self._to_string(self._direction_values())} {self._to_string(self._stiffness_values())} CRAC {self.failure['c']} MUE 1.1" #FIXME add remaining parameters

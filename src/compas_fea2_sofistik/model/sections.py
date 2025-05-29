@@ -1,6 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 from compas_fea2.model.sections import AngleSection
 from compas_fea2.model.sections import BeamSection
@@ -50,8 +47,8 @@ class SofistikBeamSection(BeamSection):
         super(SofistikBeamSection, self).__init__(A=A, Ixx=Ixx, Iyy=Iyy, Ixy=Ixy, Avx=Avx, Avy=Avy, J=J, g0=g0, gw=gw, material=material, name=name, **kwargs)
 
     def jobdata(self):
-        return "SVAL NO {} MNO {} A {} IZ {} IY {} IYZ {} AZ {} AY {} IT {} G0? {} GW? {}".format(self.input_key,
-                                                                                                  self.material.input_key,
+        return "SVAL NO {} MNO {} A {} IZ {} IY {} IYZ {} AZ {} AY {} IT {} G0? {} GW? {}".format(self.key,
+                                                                                                  self.material.key,
                                                                                                   self.A,
                                                                                                   self.Ixx,
                                                                                                   self.Iyy,
@@ -77,10 +74,10 @@ class SofistikBoxSection(BoxSection):
         super(SofistikBoxSection, self).__init__(w=w, h=h, tw=tw, tf=tf, material=material, name=name, **kwargs)
 
     def jobdata(self):
-        return "SREC no {}  h {}  b {} mno {} ToFindEquivalentOftw {} ToFindEquivalentOftf {}".format(self.input_key,
+        return "SREC no {}  h {}  b {} mno {} ToFindEquivalentOftw {} ToFindEquivalentOftf {}".format(self.key,
                                                                                                       self.h,
                                                                                                       self.w,
-                                                                                                      self.material.input_key,
+                                                                                                      self.material.key,
                                                                                                       self.tw,
                                                                                                       self.tf)
 
@@ -110,9 +107,9 @@ class SofistikCircularSection(CircularSection):
         str
             Input file data line.
         """
-        return "SCIT NO {} D {} MNO {}".format(self.input_key,
+        return "SCIT NO {} D {} MNO {}".format(self.key,
                                                  2*self.r,
-                                                 self.material.input_key)
+                                                 self.material.key)
 
 
 class SofistikHexSection(HexSection):
@@ -202,10 +199,10 @@ class SofistikRectangularSection(RectangularSection):
             Input file data line.
         """
 
-        return "SREC NO {} H {} B {} MNO {}".format(self.input_key,
+        return "SREC NO {} H {} B {} MNO {}".format(self.key,
                                                     self._h,
                                                     self._w,
-                                                    self.material.input_key)
+                                                    self.material.key)
 
 
 class SofistikShellSection(ShellSection):

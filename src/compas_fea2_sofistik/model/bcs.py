@@ -1,6 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 from compas_fea2.model.bcs import ClampBCXX
 from compas_fea2.model.bcs import ClampBCYY
@@ -34,7 +31,7 @@ def _jobdata(obj, nodes):
         input file data string
     """
     comp = {'x':'PX','y':'PY','z':'PZ','xx':'MX','yy':'MY','zz':'MZ'}
-    return "\n".join(["NODE NO {} FIX {}".format(node.input_key,
+    return "\n".join(["NODE NO {} FIX {}".format(node.key,
                                            ','.join([comp[c] for c in comp if getattr(obj, c)]))
                 for node in nodes])
 

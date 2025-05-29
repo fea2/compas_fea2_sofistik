@@ -1,6 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 from compas_fea2.model.elements import BeamElement
 from compas_fea2.model.elements import Face
@@ -42,7 +39,7 @@ class SofistikBeamElement(BeamElement):
         )
 
     @property
-    def input_key(self):
+    def key(self):
         return self._key+1+self.part.key*1_000_000
 
     def jobdata(self):
@@ -60,7 +57,7 @@ class SofistikBeamElement(BeamElement):
         """
 
         return "BEAM NO {} NA {} NE {} NCS {} DIV 1".format(
-            self.input_key, self.nodes[0].input_key, self.nodes[1].input_key, self.section.input_key
+            self.key, self.nodes[0].key, self.nodes[1].key, self.section.key
         )
 
 
@@ -120,11 +117,11 @@ class SofistikSpringElement(SpringElement):
         )
 
     @property
-    def input_key(self):
+    def key(self):
         return self._key+1+self.part.key*1_000_000
 
     def jobdata(self):
-        return f"SPRI NA {self.nodes[0].input_key} NE {self.nodes[-1].input_key} CP 2000.0 2000.0 CRAC 0"
+        return f"SPRI NA {self.nodes[0].key} NE {self.nodes[-1].key} CP 2000.0 2000.0 CRAC 0"
 
 
 class SofistikFace(Face):
@@ -164,12 +161,12 @@ class SofistikShellElement(ShellElement):
         super(SofistikShellElement, self).__init__(nodes=nodes, section=section, rigid=rigid, name=name, **kwargs)
 
     @property
-    def input_key(self):
+    def key(self):
         return self._key+1+self.part.key*1_000_000
 
     def jobdata(self):
         nodes = " ".join(f"N{c} " + str(n.key + 1) for c, n in enumerate(self.nodes, 1))
-        return f"QUAD {self.input_key} {nodes} MNO {self.section.material.input_key} T {self.section.t}"
+        return f"QUAD {self.key} {nodes} MNO {self.section.material.key} T {self.section.t}"
 
 
 class SofistikTetrahedronElement(TetrahedronElement):
@@ -186,11 +183,11 @@ class SofistikTetrahedronElement(TetrahedronElement):
         nodes = []
         for c, n in enumerate(self.nodes, 1):
             if c != 4:
-                nodes.append(f"N{c} " + str(n.input_key))
+                nodes.append(f"N{c} " + str(n.key))
             else:
-                nodes.append(f"N4 0 N{c+1} " + str(n.input_key))
+                nodes.append(f"N4 0 N{c+1} " + str(n.key))
         nodes = " ".join(nodes)
-        return f"BRIC {self.input_key} {nodes} MNO {self.section.material.input_key}"
+        return f"BRIC {self.key} {nodes} MNO {self.section.material.key}"
 
 
 class SofistikPentahedronElement(PentahedronElement):
@@ -219,5 +216,5 @@ class SofistikHexahedronElement(HexahedronElement):
         )
 
     def jobdata(self):
-        nodes = " ".join(f"N{c} " + str(n.input_key) for c, n in enumerate(self.nodes, 1))
-        return f"BRIC {self.input_key} {nodes} MNO {self.section.material.input_key}"
+        nodes = " ".join(f"N{c} " + str(n.key) for c, n in enumerate(self.nodes, 1))
+        return f"BRIC {self.key} {nodes} MNO {self.section.material.key}"

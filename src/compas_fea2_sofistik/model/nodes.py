@@ -1,6 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 from compas_fea2.model.nodes import Node
 
@@ -32,7 +29,7 @@ class SofistikNode(Node):
         str
             input file data line.
         """
-        return """NODE {} X {} Y {} Z {}""".format(self.input_key,
+        return """NODE {} X {} Y {} Z {}""".format(self.key,
                                                       self.x,
                                                       self.y,
                                                       self.z)
